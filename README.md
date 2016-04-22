@@ -1,3 +1,5 @@
+![ic_launcher.png](https://bitbucket.org/repo/kBRKan/images/810051548-ic_launcher.png)
+
 This is a simple music widget for Android, which you can add to your home screen, to listen to the music stored in your device
 
 While it's playing music, it will show you the name of the song/artist in the widget itself and in a notification, which also shows up on your lock screen.

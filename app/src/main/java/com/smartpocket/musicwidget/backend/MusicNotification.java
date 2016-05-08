@@ -14,15 +14,18 @@ import com.smartpocket.musicwidget.service.MusicService;
 public class MusicNotification {
 	private final NotificationCompat.Builder builder;
 	private Notification notification;
-    private NotificationCompat.Action playPauseAction;
+    private final NotificationCompat.Action playPauseAction;
+	private final NotificationCompat.Action shuffleAction;
 	private final NotificationManager manager;
 	private final int notificationID;
 	
-	public MusicNotification(Context context, int notificationID, String title, String artist){
+	public MusicNotification(Context context, int notificationID, String title, String artist, boolean isShuffleOn){
 		this.notificationID = notificationID;
 		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        playPauseAction = new NotificationCompat.Action(R.drawable.pause, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_PLAY_PAUSE));
+		int shuffleIcon = isShuffleOn ? R.drawable.shuffle_on : R.drawable.shuffle_off;
+		shuffleAction   = new NotificationCompat.Action(shuffleIcon,      null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_SHUFFLE));
+		playPauseAction = new NotificationCompat.Action(R.drawable.ic_pause_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_PLAY_PAUSE));
 
 		Intent notificationIntent = new Intent(context, MusicService.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
@@ -31,11 +34,12 @@ public class MusicNotification {
 		// Show controls on lock screen even when user hides sensitive content.
 		builder.setVisibility(Notification.VISIBILITY_PUBLIC);
 		// Add media control buttons that invoke intents in your media service
-		builder.addAction(R.drawable.previous, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_PREVIOUS)) // #0
-		.addAction(playPauseAction)  // #1
-		.addAction(R.drawable.next, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_NEXT))     // #2
-		.addAction(R.drawable.stop, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_STOP))     // #3
-		.setStyle(new NotificationCompat.MediaStyle());
+		builder.addAction(shuffleAction)
+				.addAction(R.drawable.ic_skip_previous_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_PREVIOUS))
+				.addAction(playPauseAction)
+				.addAction(R.drawable.ic_skip_next_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_NEXT))
+				.addAction(R.drawable.ic_stop_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_STOP))
+				.setStyle(new NotificationCompat.MediaStyle());
 
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
 
@@ -56,15 +60,20 @@ public class MusicNotification {
 		return notification;
 	}
 	
-	public void update(String title, String artist, boolean isPlaying){
+	public void update(String title, String artist, boolean isPlaying, boolean isShuffleOn){
 		builder.setContentTitle(title)
 			.setContentText(artist)
 			.setWhen(System.currentTimeMillis());
 
 		if (isPlaying)
-            playPauseAction.icon = R.drawable.pause;
+            playPauseAction.icon = R.drawable.ic_pause_white_36dp;
         else
-            playPauseAction.icon = R.drawable.play;
+            playPauseAction.icon = R.drawable.ic_play_arrow_white_36dp;
+
+		if (isShuffleOn)
+			shuffleAction.icon = R.drawable.shuffle_on;
+		else
+			shuffleAction.icon = R.drawable.shuffle_off;
 
 		notification = builder.build();
 		manager.notify(notificationID, notification);

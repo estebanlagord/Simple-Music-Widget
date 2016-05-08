@@ -14,10 +14,11 @@ public class MusicLoader {
 	private static final String TAG = "Music Loader";
 	private static final String LAST_SONG_TITLE = "Last Song Title";
 	private static final String LAST_SONG_ARTIST = "Last Song Artist";
+	private static final String IS_SHUFFLE_ON = "Is Shuffle On";
 	private static MusicLoader instance;
 	private final Context context;
 	private Cursor cur;
-
+	private boolean isShuffleOn;
 
 	public static MusicLoader getInstance(Context context){
 		if (instance == null) {
@@ -34,6 +35,11 @@ public class MusicLoader {
 
     
     private void prepare() {
+		// Check if shuffle mode is on
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		this.isShuffleOn = prefs.getBoolean(IS_SHUFFLE_ON, false);
+		String sortOrder = isShuffleOn ? "RANDOM()" : null;
+
         Log.d(TAG, "Querying media...");
 
         
@@ -44,8 +50,6 @@ public class MusicLoader {
 		        MediaStore.Audio.Media._ID,
 		        MediaStore.Audio.Media.ARTIST,
 		        MediaStore.Audio.Media.TITLE,
-		        MediaStore.Audio.Media.DATA,
-		        MediaStore.Audio.Media.DISPLAY_NAME,
 		        MediaStore.Audio.Media.DURATION
 		};
 
@@ -54,7 +58,7 @@ public class MusicLoader {
 		        projection,
 		        selection,
 		        null,
-				"RANDOM()");
+				sortOrder);
         
         Log.d(TAG, "Query finished. " + (cur == null ? "Returned NULL." : "Returned a cursor."));
 
@@ -63,10 +67,8 @@ public class MusicLoader {
             Log.e(TAG, "Failed to retrieve music: cursor is null");
             return;
         }
-        
 
     	// Move the cursor to the position of the song which was playing the last time the application was running
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String lastSongTitle  = prefs.getString(LAST_SONG_TITLE, null);
         String lastSongArtist = prefs.getString(LAST_SONG_ARTIST, null);
         
@@ -115,7 +117,34 @@ public class MusicLoader {
     	
     	return getCurrent();
     }
-    
+
+	public boolean isShuffleOn () {
+		return isShuffleOn;
+	}
+
+	public void toggleShuffle() {
+		boolean newValue = !isShuffleOn;
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		Editor editor = prefs.edit();
+		editor.putBoolean(IS_SHUFFLE_ON, newValue);
+		editor.commit();
+
+		close(); // to trigger a new query
+	}
+
+	public void jumpTo(Song song) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		Editor editor = prefs.edit();
+		editor.putString(LAST_SONG_TITLE, song.getTitle());
+		editor.putString(LAST_SONG_ARTIST, song.getArtist());
+		editor.commit();
+
+		if (cur != null)
+			cur.close();
+
+		instance = null;
+	}
+
     public void close() {
     	if (cur != null){
         	// Save current song in a Shared Preference

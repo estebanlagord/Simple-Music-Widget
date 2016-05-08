@@ -1,8 +1,6 @@
 package com.smartpocket.musicwidget.service;
 
 
-import java.io.IOException;
-
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -11,6 +9,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.smartpocket.musicwidget.MusicWidget;
 import com.smartpocket.musicwidget.R;
@@ -19,6 +18,8 @@ import com.smartpocket.musicwidget.backend.MusicNotification;
 import com.smartpocket.musicwidget.model.Song;
 import com.smartpocket.musicwidget.musicplayer.MusicPlayer;
 import com.smartpocket.musicwidget.musicplayer.MusicPlayerCompletionListener;
+
+import java.io.IOException;
 
 
 public class MusicService extends Service implements MusicPlayerCompletionListener 
@@ -44,25 +45,34 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 		String action = intent.getAction() != null ? intent.getAction() : "";
 		
 		try {
-			if (action.equals(MusicWidget.ACTION_PLAY_PAUSE)) 
+			if (action.equals(MusicWidget.ACTION_PLAY_PAUSE))
 			{
 				if (player.isPlaying())
 					pauseMusic();
 				else{
 					playMusic();
 				}
-			} 
+			}
 			else if (action.equals(MusicWidget.ACTION_STOP))
 			{
 				stopMusic();
 			}
-			else if (action.equals(MusicWidget.ACTION_NEXT)) 
+			else if (action.equals(MusicWidget.ACTION_NEXT))
 			{
 				nextSong();
 			}
 			else if (action.equals(MusicWidget.ACTION_PREVIOUS))
 			{
 				previousSong();
+			}
+			else if (action.equals(MusicWidget.ACTION_SHUFFLE))
+			{
+				toggleShuffle();
+			}
+			else if (action.equals(MusicWidget.ACTION_JUMP_TO))
+			{
+				Song song = (Song)intent.getExtras().get("song");
+				jumpTo(song);
 			}
 
 		} 
@@ -71,8 +81,25 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 			e.printStackTrace();
 		}
 		return super.onStartCommand(intent, START_STICKY, 1);
-	}	
-	
+	}
+
+	private void toggleShuffle() {
+		MusicLoader.getInstance(this).toggleShuffle();
+
+		// update the shuffle icon
+		if (player.isStopped()) {
+			updateUI(null, null, null, null);
+		} else {
+			Song song = MusicLoader.getInstance(this).getCurrent();
+			updateUI(song.getTitle(), song.getArtist(), song.getDurationStr(), player.isPlaying());
+		}
+
+		if (MusicLoader.getInstance(this).isShuffleOn())
+			Toast.makeText(this, R.string.toast_shuffle_on, Toast.LENGTH_SHORT).show();
+		else
+			Toast.makeText(this, R.string.toast_shuffle_off, Toast.LENGTH_SHORT).show();
+	}
+
 	@Override
 	public void onDestroy() 
 	{
@@ -102,11 +129,17 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 		
 		if (isPlaying != null){
 			if (isPlaying)
-				remoteViews.setImageViewResource(R.id.button_play_pause, R.drawable.pause);
+				remoteViews.setImageViewResource(R.id.button_play_pause, R.drawable.ic_pause_white_36dp);
 			else
-				remoteViews.setImageViewResource(R.id.button_play_pause, R.drawable.play);
+				remoteViews.setImageViewResource(R.id.button_play_pause, R.drawable.ic_play_arrow_white_36dp);
 		}
-		
+
+		boolean isShuffleOn = MusicLoader.getInstance(this).isShuffleOn();
+		if (isShuffleOn)
+			remoteViews.setImageViewResource(R.id.button_shuffle, R.drawable.shuffle_on);
+		else
+			remoteViews.setImageViewResource(R.id.button_shuffle, R.drawable.shuffle_off);
+
 		ComponentName thisWidget = new ComponentName(this, MusicWidget.class);
 		AppWidgetManager manager = AppWidgetManager.getInstance(this);
 		manager.updateAppWidget(thisWidget, remoteViews);
@@ -114,11 +147,11 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 		// Create/Update a notification, to run the service in foreground
 		if (artist != null && title != null) {
 			if (mNotification == null) {
-				mNotification = new MusicNotification(this, ONGOING_NOTIFICATION_ID, title, artist);
+				mNotification = new MusicNotification(this, ONGOING_NOTIFICATION_ID, title, artist, isShuffleOn);
 				startForeground(ONGOING_NOTIFICATION_ID, mNotification.getNotification());
 			} else {
 				boolean isPlayingUnboxed = isPlaying != null ? isPlaying : false;
-				mNotification.update(title, artist, isPlayingUnboxed);
+				mNotification.update(title, artist, isPlayingUnboxed, isShuffleOn);
 			}
 		} else {
 			stopForeground(true);
@@ -190,7 +223,12 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 			updateUI(prevSong.getTitle(), prevSong.getArtist(), prevSong.getDurationStr(), player.isPlaying());
 		}
 	}
-	
+
+	private void jumpTo(Song song) throws IOException
+	{
+		MusicLoader.getInstance(this).jumpTo(song);
+		playMusic();
+	}
 	
 	@Override
 	public void onMusicCompletion() throws IOException {

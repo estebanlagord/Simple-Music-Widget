@@ -1,5 +1,6 @@
 package com.smartpocket.musicwidget.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -7,7 +8,7 @@ import java.util.Locale;
 import android.content.ContentUris;
 import android.net.Uri;
 
-public class Song {
+public class Song implements Serializable{
 	private final long id;
 	private final String title;
 	private final String artist;

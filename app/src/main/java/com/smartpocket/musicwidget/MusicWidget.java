@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.smartpocket.musicwidget.activities.SongListActivity;
 import com.smartpocket.musicwidget.service.MusicService;
 
 public class MusicWidget extends AppWidgetProvider {
@@ -18,6 +19,8 @@ public class MusicWidget extends AppWidgetProvider {
 	public static final String ACTION_STOP = "com.smartpocket.musicwidget.stop";
 	public static final String ACTION_NEXT = "com.smartpocket.musicwidget.next";
 	public static final String ACTION_PREVIOUS = "com.smartpocket.musicwidget.previous";
+	public static final String ACTION_SHUFFLE = "com.smartpocket.musicwidget.shuffle";
+	public static final String ACTION_JUMP_TO = "com.smartpocket.musicwidget.jump_to";
 	
 
 	
@@ -46,7 +49,17 @@ public class MusicWidget extends AppWidgetProvider {
 		// For Next button
 		PendingIntent pendingIntentNext = getPendingIntent(context, MusicWidget.ACTION_NEXT);
 		remoteViews.setOnClickPendingIntent(R.id.button_next,pendingIntentNext);
-		
+
+		// For Shuffle button
+		PendingIntent pendingIntentShuffle = getPendingIntent(context, MusicWidget.ACTION_SHUFFLE);
+		remoteViews.setOnClickPendingIntent(R.id.button_shuffle,pendingIntentShuffle);
+
+		// For Song List activity
+		Intent intent= new Intent(context, SongListActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		PendingIntent pendIntentSongList = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		remoteViews.setOnClickPendingIntent(R.id.layout_header, pendIntentSongList);
+
 		return remoteViews;
 	}
 
@@ -89,8 +102,9 @@ public class MusicWidget extends AppWidgetProvider {
 		
 		if ((action.equals(ACTION_PLAY_PAUSE)
 				|| action.equals(ACTION_NEXT) 
-				|| action.equals(ACTION_STOP) 
-				|| action.equals(ACTION_PREVIOUS))) 
+				|| action.equals(ACTION_STOP)
+				|| action.equals(ACTION_PREVIOUS)
+		        || action.equals(ACTION_SHUFFLE)))
 		{
 			Intent serviceIntent = new Intent(context, MusicService.class);
 			serviceIntent.setAction(action);

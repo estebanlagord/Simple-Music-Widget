@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Widget Musical Simple</string>
+    <string name="title_activity_song_list">Elige una canción</string>
+    <string name="toast_shuffle_on">Reproducción aleatoria</string>
+    <string name="toast_shuffle_off">Reproducción ordenada</string>
+    <string name="search_title">Abrir canción</string>
 </resources>

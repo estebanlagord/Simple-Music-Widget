@@ -10,6 +10,7 @@
     tools:ignore="ContentDescription,HardcodedText" >
 
     <LinearLayout
+        android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:gravity="center"
@@ -68,36 +69,44 @@
         android:layout_height="wrap_content" >
 
         <ImageButton
+            android:id="@+id/button_shuffle"
+            android:layout_width="0dip"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/appwidget_button_left"
+            android:src="@drawable/shuffle_off" />
+
+        <ImageButton
             android:id="@+id/button_prev"
             android:layout_width="0dip"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@drawable/appwidget_button_center"
-            android:src="@drawable/previous" />
+            android:src="@drawable/ic_skip_previous_white_36dp" />
 
         <ImageButton
             android:id="@+id/button_play_pause"
             android:layout_width="0dip"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/appwidget_button_left"
-            android:src="@drawable/play" />
+            android:background="@drawable/appwidget_button_center"
+            android:src="@drawable/ic_play_arrow_white_36dp" />
 
         <ImageButton
             android:id="@+id/button_next"
             android:layout_width="0dip"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/appwidget_button_right"
-            android:src="@drawable/next" />
+            android:background="@drawable/appwidget_button_center"
+            android:src="@drawable/ic_skip_next_white_36dp" />
 
         <ImageButton
             android:id="@+id/button_stop"
             android:layout_width="0dip"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/appwidget_button_center"
-            android:src="@drawable/stop" />
+            android:background="@drawable/appwidget_button_right"
+            android:src="@drawable/ic_stop_white_36dp" />
 
     </LinearLayout>
 

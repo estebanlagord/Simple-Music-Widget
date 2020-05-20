@@ -5,12 +5,14 @@
     android:versionName="2.0">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
         <receiver
             android:name=".MusicWidget"
             android:label="@string/app_name">
@@ -23,23 +25,30 @@
                 android:resource="@xml/music_widget_provider" />
         </receiver>
 
-        <service android:name=".service.MusicService"/>
+        <service android:name=".service.MusicService" />
+
+        <activity
+            android:name=".activities.ConfigurationActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".activities.SongListActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_song_list"
             android:launchMode="singleTop"
-            android:configChanges="orientation"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
-            <meta-data android:name="android.app.searchable"
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
 
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

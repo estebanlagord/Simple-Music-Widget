@@ -3,7 +3,7 @@
     <string name="app_name">Simple Music Widget</string>
     <string name="title_activity_song_list">Pick a song</string>
     <string name="search_title">Find a song</string>
-    <string name="toast_shuffle_on" >Shuffle is on</string>
+    <string name="toast_shuffle_on">Shuffle is on</string>
     <string name="toast_shuffle_off">Shuffle is off</string>
 
 </resources>

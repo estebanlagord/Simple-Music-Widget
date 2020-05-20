@@ -4,11 +4,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +14,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.smartpocket.musicwidget.MusicWidget;
 import com.smartpocket.musicwidget.R;
@@ -32,14 +33,14 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_song_list));
         getSupportActionBar().setLogo(R.drawable.ic_launcher);
 
         handleIntent(getIntent());
 
-        ListView list = (ListView) findViewById(R.id.listView);
+        ListView list = findViewById(R.id.listView);
         Cursor listCursor = SongListLoader.getInstance(this).getCursor();
         adapter = new SongListAdapter(this, listCursor);
         adapter.setFilterQueryProvider(new FilterQueryProvider() {
@@ -59,7 +60,11 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
                 Intent serviceIntent = new Intent(SongListActivity.this, MusicService.class);
                 serviceIntent.setAction(MusicWidget.ACTION_JUMP_TO);
                 serviceIntent.putExtra("song", song);
-                SongListActivity.this.startService(serviceIntent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    SongListActivity.this.startForegroundService(serviceIntent);
+                } else {
+                    SongListActivity.this.startService(serviceIntent);
+                }
                 finish();
             }
         });
@@ -73,7 +78,7 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
 
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
 
@@ -84,6 +89,7 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
 
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         setIntent(intent);
         handleIntent(intent);
     }

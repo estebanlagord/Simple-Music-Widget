@@ -15,13 +15,16 @@ import com.smartpocket.musicwidget.R
 
 private const val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
 private const val TAG = "Music Widget Config"
+private const val MAX_ATTEMPTS = 20
 
 class ConfigurationActivity : AppCompatActivity() {
+    var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 //        android.os.Debug.waitForDebugger()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permission)
+        title = null
         setResult(Activity.RESULT_CANCELED)
         checkPermission()
     }
@@ -60,6 +63,7 @@ class ConfigurationActivity : AppCompatActivity() {
 
     private fun requestPermission() {
         Log.i(TAG, "requesting permission")
+        counter++
         ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                 MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
@@ -79,7 +83,18 @@ class ConfigurationActivity : AppCompatActivity() {
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    checkPermission()
+                    if (counter < MAX_ATTEMPTS) {
+                        checkPermission()
+                    } else {
+                        // give up
+                        MaterialAlertDialogBuilder(this)
+                                .setTitle("Permission needed")
+                                .setMessage("You rejected the permission request, and the app cannot work without it.\nYou will need to reinstall the app or change this setting manually.")
+                                .setPositiveButton("Continue") { _, _ ->
+                                    finish()
+                                }
+                                .show()
+                    }
                 }
                 return
             }

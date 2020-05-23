@@ -10,24 +10,27 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.FilterQueryProvider;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.smartpocket.musicwidget.MusicWidget;
 import com.smartpocket.musicwidget.R;
-import com.smartpocket.musicwidget.backend.SongListAdapter;
+import com.smartpocket.musicwidget.backend.SongClickListener;
+import com.smartpocket.musicwidget.backend.SongCursorRecyclerAdapter;
 import com.smartpocket.musicwidget.backend.SongListLoader;
 import com.smartpocket.musicwidget.model.Song;
 import com.smartpocket.musicwidget.service.MusicService;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SongListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    private SongListAdapter adapter;
+    private final SongListLoader songLoader = SongListLoader.getInstance(this);
+    private SongCursorRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +43,11 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
 
         handleIntent(getIntent());
 
-        ListView list = findViewById(R.id.listView);
-        Cursor listCursor = SongListLoader.getInstance(this).getCursor();
-        adapter = new SongListAdapter(this, listCursor);
-        adapter.setFilterQueryProvider(new FilterQueryProvider() {
+        RecyclerView list = findViewById(R.id.listView);
+        Cursor listCursor = songLoader.getCursor();
+        adapter = new SongCursorRecyclerAdapter(listCursor, new SongClickListener() {
             @Override
-            public Cursor runQuery(CharSequence constraint) {
-                return SongListLoader.getInstance(SongListActivity.this).getFilteredCursor(constraint);
-            }
-        });
-
-        list.setAdapter(adapter);
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Song song = ((SongListAdapter)parent.getAdapter()).getSong(position);
+            public void onSongSelected(@NotNull Song song) {
                 Log.i("SongListactivity click", song.toString());
                 Intent serviceIntent = new Intent(SongListActivity.this, MusicService.class);
                 serviceIntent.setAction(MusicWidget.ACTION_JUMP_TO);
@@ -68,6 +60,11 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
                 finish();
             }
         });
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(list.getContext(),
+                LinearLayout.VERTICAL);
+        list.addItemDecoration(dividerItemDecoration);
+        list.setAdapter(adapter);
     }
 
     @Override
@@ -86,7 +83,6 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
     }
 
 
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -97,17 +93,21 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String searchText = intent.getStringExtra(SearchManager.QUERY);
-
-            Log.d("SongListActivity", "Searched for: " + searchText);
-            adapter.getFilter().filter(searchText);
+            Log.d("SongListActivity", "handleIntent Searched for: " + searchText);
+            doSearch(searchText);
         }
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        Log.d("SongListActivity", "Searched for: " + newText);
-        adapter.getFilter().filter(newText);
+        Log.d("SongListActivity", "onQueryTextChange Searched for: " + newText);
+        doSearch(newText);
         return true;
+    }
+
+    private void doSearch(String newText) {
+        Cursor newCursor = songLoader.getFilteredCursor(newText);
+        adapter.changeCursor(newCursor);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
@@ -52,25 +53,33 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
         String action = intent.getAction() != null ? intent.getAction() : "";
 
         try {
-            if (action.equals(MusicWidget.ACTION_PLAY_PAUSE)) {
-                if (player.isPlaying())
-                    pauseMusic();
-                else {
-                    playMusic();
-                }
-            } else if (action.equals(MusicWidget.ACTION_STOP)) {
-                stopMusic();
-            } else if (action.equals(MusicWidget.ACTION_NEXT)) {
-                nextSong();
-            } else if (action.equals(MusicWidget.ACTION_PREVIOUS)) {
-                previousSong();
-            } else if (action.equals(MusicWidget.ACTION_SHUFFLE)) {
-                toggleShuffle();
-            } else if (action.equals(MusicWidget.ACTION_JUMP_TO)) {
-                Song song = (Song) intent.getExtras().get("song");
-                jumpTo(song);
+            switch (action) {
+                case MusicWidget.ACTION_PLAY_PAUSE:
+                    if (player.isPlaying())
+                        pauseMusic();
+                    else {
+                        playMusic();
+                    }
+                    break;
+                case MusicWidget.ACTION_STOP:
+                    stopMusic();
+                    break;
+                case MusicWidget.ACTION_NEXT:
+                    nextSong();
+                    break;
+                case MusicWidget.ACTION_PREVIOUS:
+                    previousSong();
+                    break;
+                case MusicWidget.ACTION_SHUFFLE:
+                    toggleShuffle();
+                    break;
+                case MusicWidget.ACTION_JUMP_TO:
+                    Song song = (Song) intent.getExtras().get("song");
+                    jumpTo(song);
+                    break;
             }
-
+        } catch (CursorIndexOutOfBoundsException e) {
+            Toast.makeText(this, R.string.toast_no_music_found, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }

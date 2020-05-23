@@ -8,5 +8,6 @@
     <string name="request_permission_button">Continue</string>
     <string name="request_permission_message">You need to grant this app permission to read your external storage.\nThis is needed to access your music files.</string>
     <string name="denied_permission_messsage">You rejected the permission request, and the app cannot work without it.\nYou will need to reinstall the app or change this setting manually.</string>
+    <string name="toast_no_music_found">No music files found</string>
 
 </resources>

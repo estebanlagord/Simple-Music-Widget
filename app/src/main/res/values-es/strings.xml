@@ -8,4 +8,5 @@
     <string name="request_permission_button">Continuar</string>
     <string name="request_permission_message">Esta app necesita tu permiso para leer los archivos de música.</string>
     <string name="denied_permission_messsage">Negaste la solicitud de permiso, y la app no funciona sin eso.\nReinstala la app o configura el permiso manualmente.</string>
+    <string name="toast_no_music_found">No hay archivos de musica</string>
 </resources>

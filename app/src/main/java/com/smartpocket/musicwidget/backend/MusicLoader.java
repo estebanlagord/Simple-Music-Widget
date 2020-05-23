@@ -11,6 +11,7 @@ import android.util.Log;
 import com.smartpocket.musicwidget.model.Song;
 
 public class MusicLoader {
+	public static String DEFAULT_SORT_ORDER = MediaStore.Audio.Media.ARTIST + ", " + MediaStore.Audio.Media.TITLE;
 	private static final String TAG = "Music Loader";
 	private static final String LAST_SONG_TITLE = "Last Song Title";
 	private static final String LAST_SONG_ARTIST = "Last Song Artist";
@@ -38,13 +39,13 @@ public class MusicLoader {
 		// Check if shuffle mode is on
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		this.isShuffleOn = prefs.getBoolean(IS_SHUFFLE_ON, false);
-		String sortOrder = isShuffleOn ? "RANDOM()" : null;
+		String sortOrder = isShuffleOn ? "RANDOM()" : DEFAULT_SORT_ORDER;
 
         Log.d(TAG, "Querying media...");
 
         
 		//Some audio may be explicitly marked as not being music
-		String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
+		String selection = getDefaultSelection();
 
 		String[] projection = {
 		        MediaStore.Audio.Media._ID,
@@ -162,4 +163,9 @@ public class MusicLoader {
     	
     	instance = null;
     }
+
+	public static String getDefaultSelection() {
+		return MediaStore.Audio.Media.IS_MUSIC + " != 0 and " +
+				MediaStore.Audio.Media.DATA + " NOT LIKE '%/WhatsApp/%'";
+	}
 }

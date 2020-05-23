@@ -7,7 +7,6 @@ import android.util.Log;
 
 public class SongListLoader {
     private static final String TAG = "Music Loader";
-    private static final String SORT_BY = MediaStore.Audio.Media.ARTIST + ", " + MediaStore.Audio.Media.TITLE;
     private static SongListLoader instance;
     private final Context context;
     private Cursor cur;
@@ -31,7 +30,7 @@ public class SongListLoader {
 
 
         //Some audio may be explicitly marked as not being music
-        String selection = getDefaultSelection();
+        String selection = MusicLoader.getDefaultSelection();
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
@@ -46,7 +45,7 @@ public class SongListLoader {
                 projection,
                 selection,
                 null,
-                SORT_BY);
+                MusicLoader.DEFAULT_SORT_ORDER);
 
         Log.d(TAG, "Query finished. " + (cur == null ? "Returned NULL." : "Returned a cursor."));
 
@@ -60,17 +59,12 @@ public class SongListLoader {
         return cur;
     }
 
-    private String getDefaultSelection() {
-        return MediaStore.Audio.Media.IS_MUSIC + " != 0 and " +
-                MediaStore.Audio.Media.DATA + " NOT LIKE '%/WhatsApp/%'";
-    }
-
     public Cursor getFilteredCursor(CharSequence constraint) {
         Log.d(TAG, "Querying media for filter...");
 
 
         //Some audio may be explicitly marked as not being music
-        String selection = getDefaultSelection() + " and "
+        String selection = MusicLoader.getDefaultSelection() + " and "
                 + "( " + MediaStore.Audio.Media.ARTIST + " LIKE ? or "
                 + MediaStore.Audio.Media.TITLE + " LIKE ? )";
 
@@ -86,7 +80,7 @@ public class SongListLoader {
                 projection,
                 selection,
                 new String[]{"%" + constraint + "%", "%" + constraint + "%"},
-                SORT_BY);
+                MusicLoader.DEFAULT_SORT_ORDER);
 
         Log.d(TAG, "Query for filter finished. " + (cur == null ? "Returned NULL." : "Returned a cursor."));
 

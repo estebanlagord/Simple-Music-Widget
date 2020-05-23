@@ -5,4 +5,7 @@
     <string name="toast_shuffle_on">Reprodução aleatória</string>
     <string name="toast_shuffle_off">Reprodução ordenada</string>
     <string name="search_title">Abrir música</string>
+    <string name="request_permission_button">Continuar</string>
+    <string name="request_permission_message">Este aplicativo precisa da sua permissão para ler os arquivos de música.</string>
+    <string name="denied_permission_messsage">Você rejeitou a permissão, e o app não consegue funcionar sem ela.\nReinstala o app ou muda a configuração manualmente.</string>
 </resources>

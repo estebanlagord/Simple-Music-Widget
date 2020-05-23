@@ -44,9 +44,9 @@ class ConfigurationActivity : AppCompatActivity() {
                 // sees the explanation, try again to request the permission.
                 Log.i(TAG, "showing dialog")
                 MaterialAlertDialogBuilder(this)
-                        .setTitle("Permission needed")
-                        .setMessage("You need to grant the Simple Music Widget app permission to read your external storage.\nThis is needed to access your music files.")
-                        .setPositiveButton("Continue") { _, _ ->
+                        .setTitle(R.string.app_name)
+                        .setMessage(R.string.request_permission_message)
+                        .setPositiveButton(R.string.request_permission_button) { _, _ ->
                             requestPermission()
                         }
                         .show()
@@ -88,9 +88,9 @@ class ConfigurationActivity : AppCompatActivity() {
                     } else {
                         // give up
                         MaterialAlertDialogBuilder(this)
-                                .setTitle("Permission needed")
-                                .setMessage("You rejected the permission request, and the app cannot work without it.\nYou will need to reinstall the app or change this setting manually.")
-                                .setPositiveButton("Continue") { _, _ ->
+                                .setTitle(R.string.app_name)
+                                .setMessage(R.string.denied_permission_messsage)
+                                .setPositiveButton(R.string.request_permission_button) { _, _ ->
                                     finish()
                                 }
                                 .show()

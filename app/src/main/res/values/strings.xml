@@ -5,5 +5,8 @@
     <string name="search_title">Find a song</string>
     <string name="toast_shuffle_on">Shuffle is on</string>
     <string name="toast_shuffle_off">Shuffle is off</string>
+    <string name="request_permission_button">Continue</string>
+    <string name="request_permission_message">You need to grant this app permission to read your external storage.\nThis is needed to access your music files.</string>
+    <string name="denied_permission_messsage">You rejected the permission request, and the app cannot work without it.\nYou will need to reinstall the app or change this setting manually.</string>
 
 </resources>

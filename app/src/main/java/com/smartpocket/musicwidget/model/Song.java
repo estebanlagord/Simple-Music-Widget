@@ -8,6 +8,8 @@ import java.util.Locale;
 import android.content.ContentUris;
 import android.net.Uri;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Song implements Serializable{
 	private final long id;
 	private final String title;
@@ -41,5 +43,9 @@ public class Song implements Serializable{
 	@Override
 	public String toString() {
 		return title + " - " + artist + " - " + getDurationStr();
+	}
+
+	public boolean isUnknownArtist() {
+		return StringUtils.isBlank(artist) || artist.equalsIgnoreCase("<unknown>");
 	}
 }

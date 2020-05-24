@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.futuremind.recyclerviewfastscroll.SectionTitleProvider;
 import com.smartpocket.musicwidget.R;
 import com.smartpocket.musicwidget.model.Song;
 
-public class SongCursorRecyclerAdapter extends CursorRecyclerAdapter<SongViewHolder> implements ItemClickListener {
+import org.apache.commons.lang3.StringUtils;
+
+public class SongCursorRecyclerAdapter extends CursorRecyclerAdapter<SongViewHolder> implements ItemClickListener, SectionTitleProvider {
 
     private SongClickListener listener;
 
@@ -24,6 +27,11 @@ public class SongCursorRecyclerAdapter extends CursorRecyclerAdapter<SongViewHol
     public void onBindViewHolder(SongViewHolder holder, Cursor cursor) {
         Song song = getSongFromCurrentCursorPos(cursor);
 
+        if (song.isUnknownArtist()) {
+            holder.getArtist().setVisibility(View.GONE);
+        } else {
+            holder.getArtist().setVisibility(View.VISIBLE);
+        }
         holder.getArtist().setText(song.getArtist());
         holder.getTitle().setText(song.getTitle());
         holder.getDuration().setText(song.getDurationStr());
@@ -51,5 +59,19 @@ public class SongCursorRecyclerAdapter extends CursorRecyclerAdapter<SongViewHol
             throw new IllegalStateException("couldn't move cursor to position " + position);
         }
         listener.onSongSelected(getSongFromCurrentCursorPos(mCursor));
+    }
+
+    @Override
+    public String getSectionTitle(int position) {
+        String result = "";
+        Cursor cursor = getCursor();
+        String artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+        if (artist != null) {
+            artist = artist.trim();
+            if (StringUtils.isNotBlank(artist) && !artist.equalsIgnoreCase("<unknown>")) {
+                result = artist.substring(0, 1);
+            }
+        }
+        return result;
     }
 }

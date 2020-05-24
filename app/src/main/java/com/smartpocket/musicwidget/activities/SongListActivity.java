@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.futuremind.recyclerviewfastscroll.FastScroller;
 import com.smartpocket.musicwidget.MusicWidget;
 import com.smartpocket.musicwidget.R;
 import com.smartpocket.musicwidget.backend.SongClickListener;
@@ -35,7 +36,7 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.song_list_activity);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_song_list));
@@ -43,7 +44,9 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
 
         handleIntent(getIntent());
 
-        RecyclerView list = findViewById(R.id.listView);
+        RecyclerView recyclerView = findViewById(R.id.listView);
+        FastScroller fastScroller = findViewById(R.id.fastscroll);
+
         Cursor listCursor = songLoader.getCursor();
         adapter = new SongCursorRecyclerAdapter(listCursor, new SongClickListener() {
             @Override
@@ -61,10 +64,13 @@ public class SongListActivity extends AppCompatActivity implements SearchView.On
             }
         });
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(list.getContext(),
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 LinearLayout.VERTICAL);
-        list.addItemDecoration(dividerItemDecoration);
-        list.setAdapter(adapter);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setAdapter(adapter);
+
+        //has to be called AFTER RecyclerView.setAdapter()
+        fastScroller.setRecyclerView(recyclerView);
     }
 
     @Override

@@ -32,6 +32,7 @@ import java.io.IOException;
 
 
 public class MusicService extends Service implements MusicPlayerCompletionListener {
+    public static boolean isRunning = false;
     private static final String TAG = "Music Service";
     private static final int ONGOING_NOTIFICATION_ID = 1;
     private MusicPlayer player;
@@ -50,6 +51,7 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        isRunning = true;
         String action = intent.getAction() != null ? intent.getAction() : "";
 
         try {
@@ -83,7 +85,7 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return super.onStartCommand(intent, flags, 1);
+        return super.onStartCommand(intent, flags, startId);
     }
 
     private void toggleShuffle() {
@@ -106,6 +108,7 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
     @Override
     public void onDestroy() {
         Log.d(TAG, "DESTROY SERVICE");
+        isRunning = false;
         if (player != null && !player.isStopped())
             stopMusic();
 
@@ -213,11 +216,13 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 
     private void stopMusic() {
         Log.d(TAG, "STOP MUSIC");
+        isRunning = false;
 
         player.stop();
         updateUI(null, null, null, false);
         MusicLoader.getInstance(this).close();
 
+        stopForeground(true);
         stopSelf();
     }
 

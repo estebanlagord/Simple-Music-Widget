@@ -70,7 +70,10 @@ public class MusicPlayer implements OnCompletionListener {
 	
 	public void stop(){
 		if (player != null) {
-			player.stop();
+			if (player.isPlaying()) {
+				player.stop();
+			}
+			player.reset();
 			player.release();
 			player = null;
 		}

@@ -1,20 +1,15 @@
 package com.smartpocket.musicwidget;
 
-import android.Manifest;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import androidx.core.content.ContextCompat;
-
-import com.smartpocket.musicwidget.activities.ConfigurationActivity;
 import com.smartpocket.musicwidget.activities.SongListActivity;
 import com.smartpocket.musicwidget.service.MusicService;
 
@@ -81,7 +76,7 @@ public class MusicWidget extends AppWidgetProvider {
             ComponentName thisWidget = new ComponentName(context, MusicWidget.class);
             AppWidgetManager manager = AppWidgetManager.getInstance(context);
             manager.updateAppWidget(thisWidget, remoteViews);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -100,11 +95,12 @@ public class MusicWidget extends AppWidgetProvider {
         final String action = intent.getAction();
         Log.d(TAG, "Widget received action: " + action);
 
-        if ((action.equals(ACTION_PLAY_PAUSE)
-                || action.equals(ACTION_NEXT)
-                || action.equals(ACTION_STOP)
-                || action.equals(ACTION_PREVIOUS)
-                || action.equals(ACTION_SHUFFLE))) {
+        if (ACTION_PLAY_PAUSE.equals(action)
+                || ACTION_NEXT.equals(action)
+                || (ACTION_STOP.equals(action) && MusicService.isRunning)
+                || ACTION_PREVIOUS.equals(action)
+                || ACTION_SHUFFLE.equals(action)) {
+
             Intent serviceIntent = new Intent(context, MusicService.class);
             serviceIntent.setAction(action);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

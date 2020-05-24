@@ -3,7 +3,7 @@
     android:configure="com.smartpocket.musicwidget.activities.ConfigurationActivity"
     android:initialLayout="@layout/widget"
     android:minWidth="250dp"
-    android:minHeight="110dp"
+    android:minHeight="40dp"
     android:previewImage="@drawable/widget_preview"
     android:resizeMode="horizontal"
     android:updatePeriodMillis="0"

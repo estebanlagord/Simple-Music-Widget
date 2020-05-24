@@ -2,21 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
     android:background="@drawable/appwidget_dark_bg"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:ignore="ContentDescription,HardcodedText" >
+    tools:ignore="ContentDescription,HardcodedText"
+    tools:layout_height="130dp">
 
     <LinearLayout
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp" >
+        android:paddingRight="5dp">
 
         <ImageView
             android:id="@+id/imageViewHeadphones"
@@ -24,14 +28,16 @@
             android:layout_height="50dp"
             android:src="@drawable/ic_launcher" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/layoutTextViews"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:visibility="gone" >
+            android:padding="8dp"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/textViewTitle"
@@ -40,38 +46,49 @@
                 android:singleLine="true"
                 android:text="Titulo"
                 android:textColor="@android:color/white"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewArtist"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/textViewTitle"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_toStartOf="@id/textViewDuration"
+                android:layout_toLeftOf="@id/textViewDuration"
                 android:singleLine="true"
                 android:text="Artista"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/textViewDuration"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/textViewTitle"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_gravity="center"
                 android:singleLine="true"
                 android:text="Duracion"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
+                android:textSize="17sp" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <ImageButton
             android:id="@+id/button_shuffle"
             android:layout_width="0dip"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/appwidget_button_left"
             android:src="@drawable/shuffle_off" />
@@ -79,7 +96,7 @@
         <ImageButton
             android:id="@+id/button_prev"
             android:layout_width="0dip"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/appwidget_button_center"
             android:src="@drawable/ic_skip_previous_white_36dp" />
@@ -87,7 +104,7 @@
         <ImageButton
             android:id="@+id/button_play_pause"
             android:layout_width="0dip"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/appwidget_button_center"
             android:src="@drawable/ic_play_arrow_white_36dp" />
@@ -95,7 +112,7 @@
         <ImageButton
             android:id="@+id/button_next"
             android:layout_width="0dip"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/appwidget_button_center"
             android:src="@drawable/ic_skip_next_white_36dp" />
@@ -103,7 +120,7 @@
         <ImageButton
             android:id="@+id/button_stop"
             android:layout_width="0dip"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/appwidget_button_right"
             android:src="@drawable/ic_stop_white_36dp" />

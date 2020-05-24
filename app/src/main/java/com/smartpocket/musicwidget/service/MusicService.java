@@ -52,10 +52,12 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         isRunning = true;
-        String action = intent.getAction() != null ? intent.getAction() : "";
+        if (intent == null || intent.getAction() == null) {
+            return START_STICKY;
+        }
 
         try {
-            switch (action) {
+            switch (intent.getAction()) {
                 case MusicWidget.ACTION_PLAY_PAUSE:
                     if (player.isPlaying())
                         pauseMusic();
@@ -193,8 +195,7 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
         if (player.isPaused()) {
             player.play();
         } else {
-            player.setSong(song);
-            player.play();
+            player.setSong(song, true);
         }
 
         updateUI(song.getTitle(), song.getArtist(), song.getDurationStr(), true);
@@ -231,7 +232,7 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 
         if (player != null) {
             Song nextSong = MusicLoader.getInstance(this).getNext();
-            player.setSong(nextSong);
+            player.setSong(nextSong, false);
 
             updateUI(nextSong.getTitle(), nextSong.getArtist(), nextSong.getDurationStr(), player.isPlaying());
         }
@@ -242,7 +243,7 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 
         if (player != null) {
             Song prevSong = MusicLoader.getInstance(this).getPrevious();
-            player.setSong(prevSong);
+            player.setSong(prevSong, false);
 
             updateUI(prevSong.getTitle(), prevSong.getArtist(), prevSong.getDurationStr(), player.isPlaying());
         }

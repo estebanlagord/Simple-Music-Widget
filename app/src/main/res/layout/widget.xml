@@ -25,7 +25,7 @@
         <ImageView
             android:id="@+id/imageViewHeadphones"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_launcher" />
 
         <RelativeLayout

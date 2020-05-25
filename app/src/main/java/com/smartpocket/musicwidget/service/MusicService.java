@@ -231,10 +231,11 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
         Log.d(TAG, "NEXT SONG");
 
         if (player != null) {
+            boolean wasPlaying = player.isPlaying();
             Song nextSong = MusicLoader.getInstance(this).getNext();
             player.setSong(nextSong, false);
 
-            updateUI(nextSong.getTitle(), nextSong.getArtist(), nextSong.getDurationStr(), player.isPlaying());
+            updateUI(nextSong.getTitle(), nextSong.getArtist(), nextSong.getDurationStr(), wasPlaying);
         }
     }
 
@@ -242,10 +243,11 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
         Log.d(TAG, "PREVIOUS SONG");
 
         if (player != null) {
+            boolean wasPlaying = player.isPlaying();
             Song prevSong = MusicLoader.getInstance(this).getPrevious();
             player.setSong(prevSong, false);
 
-            updateUI(prevSong.getTitle(), prevSong.getArtist(), prevSong.getDurationStr(), player.isPlaying());
+            updateUI(prevSong.getTitle(), prevSong.getArtist(), prevSong.getDurationStr(), wasPlaying);
         }
     }
 

@@ -40,7 +40,8 @@ public class MusicNotification {
                 .addAction(playPauseAction)
                 .addAction(R.drawable.ic_skip_next_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_NEXT))
                 .addAction(R.drawable.ic_stop_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_STOP))
-                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle());
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(1, 2, 3));
 
         builder.setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)

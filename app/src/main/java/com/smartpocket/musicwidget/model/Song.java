@@ -6,13 +6,13 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Song implements Serializable {
-    private static final FastDateFormat dateFormat = FastDateFormat.getInstance("mm:ss");
     private final long id;
     private final String title;
     private final String artist;
@@ -34,7 +34,8 @@ public class Song implements Serializable {
     }
 
     public String getDurationStr() {
-        return dateFormat.format(new Date(duration));
+        SimpleDateFormat df = new SimpleDateFormat("mm:ss", Locale.US);
+        return df.format(new Date(duration));
     }
 
     public Uri getURI() {

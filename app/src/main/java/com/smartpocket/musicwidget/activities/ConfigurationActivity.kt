@@ -5,6 +5,7 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -32,7 +33,8 @@ class ConfigurationActivity : AppCompatActivity() {
     private fun checkPermission() {
         Log.i(TAG, "checking permissions")
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (supportsDynamicPermissions()
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Permission is not granted
@@ -60,6 +62,8 @@ class ConfigurationActivity : AppCompatActivity() {
             finishConfigOK()
         }
     }
+
+    private fun supportsDynamicPermissions() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
     private fun requestPermission() {
         Log.i(TAG, "requesting permission")

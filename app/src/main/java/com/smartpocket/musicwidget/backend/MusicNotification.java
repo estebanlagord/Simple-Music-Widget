@@ -13,37 +13,38 @@ import com.smartpocket.musicwidget.R;
 import com.smartpocket.musicwidget.service.MusicService;
 
 public class MusicNotification {
-    private final NotificationCompat.Builder builder;
     private Notification notification;
-    private final NotificationCompat.Action playPauseAction;
-    private final NotificationCompat.Action shuffleAction;
     private final NotificationManager manager;
     private final int notificationID;
+    private final Context context;
+    private final String channelId;
 
     public MusicNotification(Context context, int notificationID, String title, String artist, boolean isShuffleOn, String channelId) {
         this.notificationID = notificationID;
+        this.context = context;
+        this.channelId = channelId;
         manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notification = getNotificationBuilder(title, artist, isShuffleOn, true).build();
+    }
 
-        int shuffleIcon = isShuffleOn ? R.drawable.shuffle_on : R.drawable.shuffle_off;
-        shuffleAction = new NotificationCompat.Action(shuffleIcon, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_SHUFFLE));
-        playPauseAction = new NotificationCompat.Action(R.drawable.ic_pause_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_PLAY_PAUSE));
-
+    private NotificationCompat.Builder getNotificationBuilder(String title, String artist, boolean isShuffleOn, boolean isPlaying) {
         Intent notificationIntent = new Intent(context, MusicService.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+        int shuffleIcon = isShuffleOn ? R.drawable.shuffle_on : R.drawable.shuffle_off;
+        int playPauseIcon = isPlaying ? R.drawable.ic_pause_white_36dp : R.drawable.ic_play_arrow_white_36dp;
 
-        builder = new NotificationCompat.Builder(context, channelId);
-        // Show controls on lock screen even when user hides sensitive content.
-        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        // Add media control buttons that invoke intents in your media service
-        builder.addAction(shuffleAction)
+        return new NotificationCompat.Builder(context, channelId)
+                // Show controls on lock screen even when user hides sensitive content.
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                // Add media control buttons that invoke intents in your media service
+                .addAction(shuffleIcon, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_SHUFFLE))
                 .addAction(R.drawable.ic_skip_previous_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_PREVIOUS))
-                .addAction(playPauseAction)
+                .addAction(playPauseIcon, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_PLAY_PAUSE))
                 .addAction(R.drawable.ic_skip_next_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_NEXT))
                 .addAction(R.drawable.ic_stop_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_STOP))
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(1, 2, 3));
-
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setShowActionsInCompactView(1, 2, 3))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setTicker(title)
@@ -52,9 +53,6 @@ public class MusicNotification {
                 .setOngoing(true)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .setContentText(artist);
-
-
-        notification = builder.build();
     }
 
 
@@ -63,21 +61,7 @@ public class MusicNotification {
     }
 
     public void update(String title, String artist, boolean isPlaying, boolean isShuffleOn) {
-        builder.setContentTitle(title)
-                .setContentText(artist)
-                .setWhen(System.currentTimeMillis());
-
-        if (isPlaying)
-            playPauseAction.icon = R.drawable.ic_pause_white_36dp;
-        else
-            playPauseAction.icon = R.drawable.ic_play_arrow_white_36dp;
-
-        if (isShuffleOn)
-            shuffleAction.icon = R.drawable.shuffle_on;
-        else
-            shuffleAction.icon = R.drawable.shuffle_off;
-
-        notification = builder.build();
+        notification = getNotificationBuilder(title, artist, isShuffleOn, isPlaying).build();
         manager.notify(notificationID, notification);
     }
 }

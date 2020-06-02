@@ -18,10 +18,6 @@ class SongListVM(application: Application) : AndroidViewModel(application) {
     private var currentSearch: Job? = null
     val cursorLD = MutableLiveData<Cursor>()
 
-    init {
-        getCursor()
-    }
-
     fun getCursor(query: String? = null) {
         currentSearch?.cancel("Cancelling previous search")
         currentSearch = viewModelScope.launch(Dispatchers.IO) {

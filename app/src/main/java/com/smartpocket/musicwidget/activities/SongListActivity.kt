@@ -22,6 +22,8 @@ import com.smartpocket.musicwidget.model.Song
 import com.smartpocket.musicwidget.service.MusicService
 import kotlinx.android.synthetic.main.song_list_activity.*
 
+private const val REQ_CODE = 1
+
 class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var adapter: SongCursorRecyclerAdapter
     private lateinit var viewModel: SongListVM
@@ -63,6 +65,25 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         viewModel.cursorLD.observe(this, Observer {
             adapter.changeCursor(it)
         })
+
+        if (needsToRequestPermissions()) {
+            val intent = Intent(this, ConfigurationActivity::class.java)
+            startActivityForResult(intent, REQ_CODE)
+        } else {
+            viewModel.getCursor()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQ_CODE) {
+            if (needsToRequestPermissions()) {
+                finish()
+            } else {
+                viewModel.getCursor()
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

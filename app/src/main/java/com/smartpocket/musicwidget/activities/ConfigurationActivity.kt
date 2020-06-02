@@ -33,9 +33,7 @@ class ConfigurationActivity : AppCompatActivity() {
     private fun checkPermission() {
         Log.i(TAG, "checking permissions")
 
-        if (supportsDynamicPermissions()
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (needsToRequestPermissions()) {
 
             // Permission is not granted
             // Should we show an explanation?
@@ -62,8 +60,6 @@ class ConfigurationActivity : AppCompatActivity() {
             finishConfigOK()
         }
     }
-
-    private fun supportsDynamicPermissions() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
     private fun requestPermission() {
         Log.i(TAG, "requesting permission")
@@ -125,4 +121,11 @@ class ConfigurationActivity : AppCompatActivity() {
         finish()
     }
 
+}
+
+fun AppCompatActivity.needsToRequestPermissions(): Boolean {
+    val supportsDynamicPermissions = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+    return supportsDynamicPermissions &&
+            (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED)
 }

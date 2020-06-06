@@ -18,10 +18,12 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.smartpocket.musicwidget.MusicWidget;
 import com.smartpocket.musicwidget.R;
+import com.smartpocket.musicwidget.activities.ConfigurationActivity;
 import com.smartpocket.musicwidget.backend.MusicLoader;
 import com.smartpocket.musicwidget.backend.MusicNotification;
 import com.smartpocket.musicwidget.model.Song;
@@ -29,6 +31,8 @@ import com.smartpocket.musicwidget.musicplayer.MusicPlayer;
 import com.smartpocket.musicwidget.musicplayer.MusicPlayerCompletionListener;
 
 import java.io.IOException;
+
+import static com.smartpocket.musicwidget.activities.ConfigurationActivityKt.needsToRequestPermissions;
 
 
 public class MusicService extends Service implements MusicPlayerCompletionListener {
@@ -56,6 +60,20 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
             return START_STICKY;
         }
 
+        if (needsToRequestPermissions(this)) {
+            openConfigActivity();
+        } else {
+            processStartCommand(intent);
+        }
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void openConfigActivity() {
+        startActivity(new Intent(this, ConfigurationActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    private void processStartCommand(@NonNull Intent intent) {
         try {
             switch (intent.getAction()) {
                 case MusicWidget.ACTION_PLAY_PAUSE:
@@ -87,7 +105,6 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return super.onStartCommand(intent, flags, startId);
     }
 
     private void toggleShuffle() {

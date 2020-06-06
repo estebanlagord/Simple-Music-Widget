@@ -3,6 +3,7 @@ package com.smartpocket.musicwidget.activities
 import android.Manifest
 import android.app.Activity
 import android.appwidget.AppWidgetManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -123,7 +124,7 @@ class ConfigurationActivity : AppCompatActivity() {
 
 }
 
-fun AppCompatActivity.needsToRequestPermissions(): Boolean {
+fun Context.needsToRequestPermissions(): Boolean {
     val supportsDynamicPermissions = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
     return supportsDynamicPermissions &&
             (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)

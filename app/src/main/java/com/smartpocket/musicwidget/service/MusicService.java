@@ -13,6 +13,8 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -31,6 +33,7 @@ import com.smartpocket.musicwidget.musicplayer.MusicPlayer;
 import com.smartpocket.musicwidget.musicplayer.MusicPlayerCompletionListener;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.smartpocket.musicwidget.activities.ConfigurationActivityKt.needsToRequestPermissions;
 
@@ -51,6 +54,38 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 
         player = new MusicPlayer(this);
         player.setOnCompletionListener(this);
+        listenForPhoneCalls();
+    }
+
+    private void listenForPhoneCalls() {
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            telephonyManager.listen(new PhoneStateListener() {
+                private AtomicBoolean wasPlayingBeforeCall = new AtomicBoolean(false);
+
+                @Override
+                public void onCallStateChanged(int state, String phoneNumber) {
+                    try {
+                        switch (state) {
+                            case TelephonyManager.CALL_STATE_RINGING:
+                            case TelephonyManager.CALL_STATE_OFFHOOK:
+                                if (player != null && player.isPlaying()) {
+                                    wasPlayingBeforeCall.set(true);
+                                    pauseMusic();
+                                }
+                                break;
+                            case TelephonyManager.CALL_STATE_IDLE:
+                                if (wasPlayingBeforeCall.getAndSet(false)) {
+                                    playMusic();
+                                }
+                                break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, PhoneStateListener.LISTEN_CALL_STATE);
+        }
     }
 
     @Override

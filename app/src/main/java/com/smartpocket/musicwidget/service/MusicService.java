@@ -16,7 +16,6 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -177,12 +176,14 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
         RemoteViews remoteViews = MusicWidget.getRemoteViews(this);
 
         if (title != null && artist != null && duration != null) {
-            remoteViews.setViewVisibility(R.id.layoutTextViews, View.VISIBLE);
+            remoteViews.setDisplayedChild(R.id.viewFlipper, 1);
+//            remoteViews.setViewVisibility(R.id.layoutTextViews, View.VISIBLE);
             remoteViews.setTextViewText(R.id.textViewTitle, title);
             remoteViews.setTextViewText(R.id.textViewArtist, artist);
             remoteViews.setTextViewText(R.id.textViewDuration, duration);
         } else {
-            remoteViews.setViewVisibility(R.id.layoutTextViews, View.GONE);
+//            remoteViews.setViewVisibility(R.id.layoutTextViews, View.GONE);
+            remoteViews.setDisplayedChild(R.id.viewFlipper, 0);
         }
 
 

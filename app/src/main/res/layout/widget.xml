@@ -18,16 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:inAnimation="@anim/fragment_open_enter"
-        android:outAnimation="@anim/fragment_open_exit">
+        android:inAnimation="@anim/in_animation"
+        android:outAnimation="@anim/out_animation">
 
         <FrameLayout
-            android:id="@+id/layout_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageViewHeadphones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

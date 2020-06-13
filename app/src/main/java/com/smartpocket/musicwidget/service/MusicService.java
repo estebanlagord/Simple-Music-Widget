@@ -43,6 +43,9 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
     private static final int ONGOING_NOTIFICATION_ID = 1;
     private MusicPlayer player;
     private MusicNotification mNotification;
+    private ViewFlipperState currFlipperState = ViewFlipperState.STOPPED;
+
+    enum ViewFlipperState {STOPPED, PLAYING}
 
     @Override
     public void onCreate() {
@@ -176,14 +179,18 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
         RemoteViews remoteViews = MusicWidget.getRemoteViews(this);
 
         if (title != null && artist != null && duration != null) {
-            remoteViews.setDisplayedChild(R.id.viewFlipper, 1);
-//            remoteViews.setViewVisibility(R.id.layoutTextViews, View.VISIBLE);
             remoteViews.setTextViewText(R.id.textViewTitle, title);
             remoteViews.setTextViewText(R.id.textViewArtist, artist);
             remoteViews.setTextViewText(R.id.textViewDuration, duration);
+            if (currFlipperState == ViewFlipperState.STOPPED) {
+                remoteViews.setDisplayedChild(R.id.viewFlipper, ViewFlipperState.PLAYING.ordinal());
+            }
+            currFlipperState = ViewFlipperState.PLAYING;
         } else {
-//            remoteViews.setViewVisibility(R.id.layoutTextViews, View.GONE);
-            remoteViews.setDisplayedChild(R.id.viewFlipper, 0);
+            if (currFlipperState == ViewFlipperState.PLAYING) {
+                remoteViews.setDisplayedChild(R.id.viewFlipper, ViewFlipperState.STOPPED.ordinal());
+            }
+            currFlipperState = ViewFlipperState.STOPPED;
         }
 
 

@@ -56,7 +56,7 @@ public class MusicWidget extends AppWidgetProvider {
         Intent intent = new Intent(context, SongListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendIntentSongList = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.layout_header, pendIntentSongList);
+        remoteViews.setOnClickPendingIntent(R.id.viewFlipper, pendIntentSongList);
 
         return remoteViews;
     }

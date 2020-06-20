@@ -4,7 +4,6 @@ package com.smartpocket.musicwidget.service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,7 +11,11 @@ import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.media.MediaBrowserCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -20,7 +23,10 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.media.MediaBrowserServiceCompat;
+import androidx.media.session.MediaButtonReceiver;
 
 import com.smartpocket.musicwidget.MusicWidget;
 import com.smartpocket.musicwidget.R;
@@ -32,15 +38,18 @@ import com.smartpocket.musicwidget.musicplayer.MusicPlayer;
 import com.smartpocket.musicwidget.musicplayer.MusicPlayerCompletionListener;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.smartpocket.musicwidget.activities.ConfigurationActivityKt.needsToRequestPermissions;
 
 
-public class MusicService extends Service implements MusicPlayerCompletionListener {
+public class MusicService extends MediaBrowserServiceCompat implements MusicPlayerCompletionListener {
     public static boolean isRunning = false;
     private static final String TAG = "Music Service";
     private static final int ONGOING_NOTIFICATION_ID = 1;
+
+    private MediaSessionCompat mediaSession;
     private MusicPlayer player;
     private MusicNotification mNotification;
     private ViewFlipperState currFlipperState = ViewFlipperState.STOPPED;
@@ -49,6 +58,7 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 
     @Override
     public void onCreate() {
+        super.onCreate();
         /* let's wait until the debugger attaches */
         //android.os.Debug.waitForDebugger();
 
@@ -56,6 +66,29 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
 
         player = new MusicPlayer(this);
         player.setOnCompletionListener(this);
+
+        // Create a MediaSessionCompat
+        mediaSession = new MediaSessionCompat(getApplicationContext(), TAG);
+
+        // Set an initial PlaybackState with ACTION_PLAY, so media buttons can start the player
+        mediaSession.setPlaybackState(
+                new PlaybackStateCompat.Builder()
+                        .setActions(PlaybackStateCompat.ACTION_PLAY
+                                | PlaybackStateCompat.ACTION_STOP
+                                | PlaybackStateCompat.ACTION_PAUSE
+                                | PlaybackStateCompat.ACTION_PLAY_PAUSE
+                                | PlaybackStateCompat.ACTION_SKIP_TO_NEXT
+                                | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+                                | PlaybackStateCompat.ACTION_SET_SHUFFLE_MODE)
+                        .build());
+
+        // MySessionCallback() has methods that handle callbacks from a media controller
+        mediaSession.setCallback(new MySessionCallback(getApplicationContext()));
+        mediaSession.setActive(true);
+
+        // Set the session's token so that client activities can communicate with it.
+        setSessionToken(mediaSession.getSessionToken());
+
         listenForPhoneCalls();
     }
 
@@ -101,6 +134,7 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
             openConfigActivity();
         } else {
             processStartCommand(intent);
+            MediaButtonReceiver.handleIntent(mediaSession, intent); //TODO ???
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -327,5 +361,15 @@ public class MusicService extends Service implements MusicPlayerCompletionListen
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Nullable
+    @Override
+    public BrowserRoot onGetRoot(@NonNull String clientPackageName, int clientUid, @Nullable Bundle rootHints) {
+        return null;
+    }
+
+    @Override
+    public void onLoadChildren(@NonNull String parentId, @NonNull Result<List<MediaBrowserCompat.MediaItem>> result) {
     }
 }

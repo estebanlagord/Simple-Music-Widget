@@ -7,10 +7,10 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.smartpocket.musicwidget.MusicWidget
@@ -21,20 +21,19 @@ import com.smartpocket.musicwidget.model.Song
 import com.smartpocket.musicwidget.service.MusicService
 import kotlinx.android.synthetic.main.song_list_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.concurrent.atomic.AtomicBoolean
 
 private const val REQ_CODE = 1
 
 class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var adapter: SongCursorRecyclerAdapter
     private val viewModel: SongListVM by viewModel()
+    private var isSearching = AtomicBoolean(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.song_list_activity)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar!!.title = resources.getString(R.string.title_activity_song_list)
-        supportActionBar!!.setLogo(R.drawable.ic_launcher)
         handleIntent(intent)
 
         adapter = SongCursorRecyclerAdapter(null, object : SongClickListener {
@@ -53,12 +52,16 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         })
 
         listView.also {
-            val dividerItemDecoration = DividerItemDecoration(it.context,
-                    LinearLayout.VERTICAL)
+            val dividerItemDecoration = DividerItemDecoration(it.context, LinearLayout.VERTICAL)
             it.addItemDecoration(dividerItemDecoration)
             it.adapter = adapter
+            it.addOnScrollListener(MyRecyclerViewOnScrollListener(fabBtn, isSearching))
+
             //has to be called AFTER RecyclerView.setAdapter()
-            fastscroll.setRecyclerView(it)
+            with(fastscroll) {
+                setRecyclerView(it)
+                setViewProvider(MyFastScrollScrollerViewProvider(fabBtn))
+            }
         }
 
         viewModel.cursorLD.observe(this, Observer {
@@ -88,12 +91,30 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.song_list, menu)
         val searchItem = menu.findItem(R.id.search)
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                isSearching.set(true)
+                fabBtn.shrink()
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                isSearching.set(false)
+                fabBtn.extend()
+                return true
+            }
+        })
 
         // Associate searchable configuration with the SearchView
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = searchItem.actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.setOnQueryTextListener(this)
+
+        fabBtn.setOnClickListener {
+            if (searchItem.isActionViewExpanded) searchItem.collapseActionView()
+            else searchItem.expandActionView()
+        }
         return true
     }
 

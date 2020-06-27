@@ -9,4 +9,5 @@
     <string name="request_permission_message">Este aplicativo precisa da sua permissão para ler os arquivos de música.</string>
     <string name="denied_permission_messsage">Você rejeitou a permissão, e o app não consegue funcionar sem ela.\nReinstale o app ou mude a configuração manualmente.</string>
     <string name="toast_no_music_found">Sem arquivos de música</string>
+    <string name="search_fab">Pesquisar</string>
 </resources>

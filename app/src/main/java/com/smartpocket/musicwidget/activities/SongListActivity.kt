@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.smartpocket.musicwidget.MusicWidget
 import com.smartpocket.musicwidget.R
@@ -21,12 +20,13 @@ import com.smartpocket.musicwidget.backend.SongCursorRecyclerAdapter
 import com.smartpocket.musicwidget.model.Song
 import com.smartpocket.musicwidget.service.MusicService
 import kotlinx.android.synthetic.main.song_list_activity.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val REQ_CODE = 1
 
 class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var adapter: SongCursorRecyclerAdapter
-    private lateinit var viewModel: SongListVM
+    private val viewModel: SongListVM by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,6 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         supportActionBar!!.title = resources.getString(R.string.title_activity_song_list)
         supportActionBar!!.setLogo(R.drawable.ic_launcher)
         handleIntent(intent)
-        viewModel = ViewModelProvider(this)[SongListVM::class.java]
 
         adapter = SongCursorRecyclerAdapter(null, object : SongClickListener {
             override fun onSongSelected(song: Song) {

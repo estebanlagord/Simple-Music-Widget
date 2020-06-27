@@ -1,10 +1,9 @@
 package com.smartpocket.musicwidget.activities
 
-import android.app.Application
 import android.database.Cursor
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.smartpocket.musicwidget.backend.SongListLoader
 import kotlinx.coroutines.Dispatchers
@@ -12,8 +11,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class SongListVM(application: Application) : AndroidViewModel(application) {
-    private val songLoader = SongListLoader.getInstance(application)
+class SongListVM(val songLoader: SongListLoader) : ViewModel() {
     private val tag = javaClass.simpleName
     private var currentSearch: Job? = null
     val cursorLD = MutableLiveData<Cursor>()

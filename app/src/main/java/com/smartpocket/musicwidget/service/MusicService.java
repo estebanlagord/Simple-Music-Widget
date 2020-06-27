@@ -41,7 +41,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import kotlin.Lazy;
+
 import static com.smartpocket.musicwidget.activities.ConfigurationActivityKt.needsToRequestPermissions;
+import static org.koin.java.KoinJavaComponent.inject;
 
 
 public class MusicService extends MediaBrowserServiceCompat implements MusicPlayerCompletionListener {
@@ -49,6 +52,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
     private static final String TAG = "Music Service";
     private static final int ONGOING_NOTIFICATION_ID = 1;
 
+    private final Lazy<MusicLoader> musicLoader = inject(MusicLoader.class);
     private MediaSessionCompat mediaSession;
     private MusicPlayer player;
     private MusicNotification mNotification;
@@ -179,17 +183,17 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
     }
 
     private void toggleShuffle() {
-        MusicLoader.getInstance(this).toggleShuffle();
+        musicLoader.getValue().toggleShuffle();
 
         // update the shuffle icon
         if (player.isStopped()) {
             updateUI(null, null, null, null);
         } else {
-            Song song = MusicLoader.getInstance(this).getCurrent();
+            Song song = musicLoader.getValue().getCurrent();
             updateUI(song.getTitle(), song.getArtist(), song.getDurationStr(), player.isPlaying());
         }
 
-        if (MusicLoader.getInstance(this).isShuffleOn())
+        if (musicLoader.getValue().isShuffleOn())
             Toast.makeText(this, R.string.toast_shuffle_on, Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(this, R.string.toast_shuffle_off, Toast.LENGTH_SHORT).show();
@@ -235,7 +239,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
                 remoteViews.setImageViewResource(R.id.button_play_pause, R.drawable.ic_play_arrow_white_36dp);
         }
 
-        boolean isShuffleOn = MusicLoader.getInstance(this).isShuffleOn();
+        boolean isShuffleOn = musicLoader.getValue().isShuffleOn();
         if (isShuffleOn)
             remoteViews.setImageViewResource(R.id.button_shuffle, R.drawable.shuffle_on);
         else
@@ -284,7 +288,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
 
     private void playMusic() throws IOException {
         Log.d(TAG, "PLAY");
-        Song song = MusicLoader.getInstance(this).getCurrent();
+        Song song = musicLoader.getValue().getCurrent();
 
         if (player.isPaused()) {
             player.play();
@@ -300,7 +304,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
     private void pauseMusic() {
         Log.d(TAG, "PAUSE");
         if (player.isPlaying()) {
-            Song song = MusicLoader.getInstance(this).getCurrent();
+            Song song = musicLoader.getValue().getCurrent();
             updateUI(song.getTitle(), song.getArtist(), song.getDurationStr(), false);
 
             player.pause();
@@ -315,7 +319,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
 
         player.stop();
         updateUI(null, null, null, false);
-        MusicLoader.getInstance(this).close();
+        musicLoader.getValue().close();
 
         stopForeground(true);
         stopSelf();
@@ -326,7 +330,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
 
         if (player != null) {
             boolean wasPlaying = player.isPlaying();
-            Song nextSong = MusicLoader.getInstance(this).getNext();
+            Song nextSong = musicLoader.getValue().getNext();
             player.setSong(nextSong, false);
 
             updateUI(nextSong.getTitle(), nextSong.getArtist(), nextSong.getDurationStr(), wasPlaying);
@@ -338,7 +342,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
 
         if (player != null) {
             boolean wasPlaying = player.isPlaying();
-            Song prevSong = MusicLoader.getInstance(this).getPrevious();
+            Song prevSong = musicLoader.getValue().getPrevious();
             player.setSong(prevSong, false);
 
             updateUI(prevSong.getTitle(), prevSong.getArtist(), prevSong.getDurationStr(), wasPlaying);
@@ -346,7 +350,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
     }
 
     private void jumpTo(Song song) throws IOException {
-        MusicLoader.getInstance(this).jumpTo(song);
+        musicLoader.getValue().jumpTo(song);
         playMusic();
     }
 
@@ -354,7 +358,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
     public void onMusicCompletion() throws IOException {
         nextSong();
         player.play();
-        Song song = MusicLoader.getInstance(this).getCurrent();
+        Song song = musicLoader.getValue().getCurrent();
         updateUI(song.getTitle(), song.getArtist(), song.getDurationStr(), true);
     }
 

@@ -11,16 +11,7 @@ public class SongListLoader {
     private final Context context;
     private Cursor cur;
 
-
-    public static SongListLoader getInstance(Context context) {
-        if (instance == null) {
-            instance = new SongListLoader(context);
-        }
-
-        return instance;
-    }
-
-    private SongListLoader(Context context) {
+    public SongListLoader(Context context) {
         this.context = context;
     }
 

@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="background">#FF212121</color>
     <color name="colorFab">#FFA71C</color>
+    <color name="divider">#3C3C3C</color>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,16 +18,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:logo="@drawable/ic_launcher"
         app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:subtitle="@string/app_name"
         app:title="@string/title_activity_song_list"
-        app:titleMarginStart="32dp"
-        app:subtitle="@string/app_name"/>
+        app:titleMarginStart="32dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        ads:layout_constraintBottom_toTopOf="@id/adViewContainer"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -39,7 +40,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:fastscroll__bubbleTextAppearance="@style/StyledScrollerTextAppearance"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/listView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -47,14 +48,24 @@
         android:id="@+id/fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:text="@string/search_fab"
         android:textAllCaps="false"
         android:theme="@style/AppTheme"
         app:backgroundTint="@color/colorFab"
         app:icon="@drawable/ic_search"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/listView"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/adViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        tools:background="#FFFFFF"
+        tools:layout_height="50dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

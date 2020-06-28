@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.smartpocket.musicwidget.MusicWidget
 import com.smartpocket.musicwidget.R
+import com.smartpocket.musicwidget.backend.AdViewHelper
 import com.smartpocket.musicwidget.backend.SongClickListener
 import com.smartpocket.musicwidget.backend.SongCursorRecyclerAdapter
 import com.smartpocket.musicwidget.model.Song
@@ -27,6 +28,7 @@ private const val REQ_CODE = 1
 
 class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var adapter: SongCursorRecyclerAdapter
+    private lateinit var adViewHelper: AdViewHelper
     private val viewModel: SongListVM by viewModel()
     private var isSearching = AtomicBoolean(false)
 
@@ -74,6 +76,13 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         } else {
             viewModel.getCursor()
         }
+        adViewHelper = AdViewHelper(adViewContainer, this)
+        adViewHelper.showBanner(true)
+    }
+
+    override fun onDestroy() {
+        adViewHelper.destroy()
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

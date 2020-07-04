@@ -9,6 +9,7 @@ import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import com.smartpocket.musicwidget.MusicWidget
 import com.smartpocket.musicwidget.R
+import com.smartpocket.musicwidget.activities.SongListActivity
 import com.smartpocket.musicwidget.model.Song
 import com.smartpocket.musicwidget.service.MusicService
 
@@ -26,7 +27,9 @@ class MusicNotification(private val context: Context,
                                        isPlaying: Boolean, mediaSession: MediaSessionCompat.Token)
             : NotificationCompat.Builder {
 
-        val notificationIntent = Intent(context, MusicService::class.java)
+        val notificationIntent = Intent(context, SongListActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
         val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
         val shuffleIcon = if (isShuffleOn) R.drawable.shuffle_on else R.drawable.shuffle_off
         val playPauseIcon = if (isPlaying) R.drawable.ic_pause_white_36dp else R.drawable.ic_play_arrow_white_36dp

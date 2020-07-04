@@ -46,6 +46,7 @@
 
         <activity
             android:name=".activities.ConfigurationActivity"
+            android:launchMode="singleTask"
             android:theme="@style/TransparentStyle">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.smartpocket.musicwidget.MusicWidget
 import com.smartpocket.musicwidget.R
 import com.smartpocket.musicwidget.backend.AdViewHelper
+import com.smartpocket.musicwidget.backend.AlbumArtLoader
 import com.smartpocket.musicwidget.backend.SongClickListener
 import com.smartpocket.musicwidget.backend.SongCursorRecyclerAdapter
 import com.smartpocket.musicwidget.model.Song
 import com.smartpocket.musicwidget.service.MusicService
 import kotlinx.android.synthetic.main.song_list_activity.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -30,6 +32,7 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var adapter: SongCursorRecyclerAdapter
     private lateinit var adViewHelper: AdViewHelper
     private val viewModel: SongListVM by viewModel()
+    private val albumArtLoader: AlbumArtLoader by inject()
     private var isSearching = AtomicBoolean(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +41,7 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setSupportActionBar(toolbar)
         handleIntent(intent)
 
-        adapter = SongCursorRecyclerAdapter(null, object : SongClickListener {
+        adapter = SongCursorRecyclerAdapter(null, this, albumArtLoader, object : SongClickListener {
             override fun onSongSelected(song: Song) {
                 Log.i("SongListActivity click", song.toString())
                 val serviceIntent = Intent(this@SongListActivity, MusicService::class.java)

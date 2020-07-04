@@ -34,15 +34,16 @@ public class SongListAdapter extends CursorAdapter implements SectionIndexer{
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView tvArtist   = (TextView) view.findViewById(R.id.textArtist);
-        TextView tvTitle    = (TextView) view.findViewById(R.id.textTitle);
-        TextView tvDuration = (TextView) view.findViewById(R.id.textDuration);
+        TextView tvArtist   = view.findViewById(R.id.textArtist);
+        TextView tvTitle    = view.findViewById(R.id.textTitle);
+        TextView tvDuration = view.findViewById(R.id.textDuration);
 
         String artist   = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
         String title    = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
         long duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+        long albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
 
-        Song song = new Song(0, title, artist, duration);
+        Song song = new Song(0, title, artist, duration, albumId);
 
         tvArtist.setText(artist);
         tvTitle.setText(title);
@@ -54,8 +55,9 @@ public class SongListAdapter extends CursorAdapter implements SectionIndexer{
         String artist   = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
         String title    = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
         long duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+        long albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
 
-        return new Song(0, title, artist, duration);
+        return new Song(0, title, artist, duration, albumId);
     }
 
     @Override

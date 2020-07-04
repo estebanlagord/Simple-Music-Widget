@@ -28,7 +28,8 @@ public class SongListLoader {
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.DURATION,
-                MediaStore.Audio.Media.DATA
+                MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Media.ALBUM_ID
         };
 
         cur = context.getContentResolver().query(
@@ -63,7 +64,8 @@ public class SongListLoader {
                 MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.TITLE,
-                MediaStore.Audio.Media.DURATION
+                MediaStore.Audio.Media.DURATION,
+                MediaStore.Audio.Media.ALBUM_ID
         };
 
         cur = context.getContentResolver().query(

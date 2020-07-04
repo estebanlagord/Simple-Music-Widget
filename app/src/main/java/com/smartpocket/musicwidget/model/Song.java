@@ -1,7 +1,10 @@
 package com.smartpocket.musicwidget.model;
 
 import android.content.ContentUris;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 
 import androidx.annotation.NonNull;
 
@@ -17,12 +20,16 @@ public class Song implements Serializable {
     private final String title;
     private final String artist;
     private final long duration;
+    private final long albumId;
+    private String albumArtPath;
+    private Bitmap albumArt;
 
-    public Song(long id, String title, String artist, long duration) {
+    public Song(long id, String title, String artist, long duration, long albumId) {
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.duration = duration;
+        this.albumId = albumId;
     }
 
     public String getTitle() {
@@ -38,8 +45,27 @@ public class Song implements Serializable {
         return df.format(new Date(duration));
     }
 
+    public long getAlbumId() {
+        return albumId;
+    }
+
+    public String getAlbumArtPath() {
+        return albumArtPath;
+    }
+
+    public Bitmap getAlbumArt() {
+        if (albumArt == null && albumArtPath != null) {
+            albumArt = BitmapFactory.decodeFile(albumArtPath);
+        }
+        return albumArt;
+    }
+
+    public void setAlbumArtPath(String albumArtPath) {
+        this.albumArtPath = albumArtPath;
+    }
+
     public Uri getURI() {
-        return ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+        return ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
     }
 
     public boolean isUnknownArtist() {

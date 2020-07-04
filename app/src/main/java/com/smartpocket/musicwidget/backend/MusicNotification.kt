@@ -5,22 +5,27 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import com.smartpocket.musicwidget.MusicWidget
 import com.smartpocket.musicwidget.R
+import com.smartpocket.musicwidget.model.Song
 import com.smartpocket.musicwidget.service.MusicService
 
 class MusicNotification(private val context: Context,
                         private val notificationID: Int,
-                        title: String,
-                        artist: String,
+                        song: Song,
                         isShuffleOn: Boolean,
+                        mediaSession: MediaSessionCompat.Token,
                         private val channelId: String) {
 
-    var notification: Notification = getNotificationBuilder(title, artist, isShuffleOn, true).build()
+    var notification: Notification = getNotificationBuilder(song, isShuffleOn, true, mediaSession).build()
     private val manager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    private fun getNotificationBuilder(title: String, artist: String, isShuffleOn: Boolean, isPlaying: Boolean): NotificationCompat.Builder {
+    private fun getNotificationBuilder(song: Song, isShuffleOn: Boolean,
+                                       isPlaying: Boolean, mediaSession: MediaSessionCompat.Token)
+            : NotificationCompat.Builder {
+
         val notificationIntent = Intent(context, MusicService::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
         val shuffleIcon = if (isShuffleOn) R.drawable.shuffle_on else R.drawable.shuffle_off
@@ -33,21 +38,24 @@ class MusicNotification(private val context: Context,
                 .addAction(playPauseIcon, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_PLAY_PAUSE))
                 .addAction(R.drawable.ic_skip_next_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_NEXT))
                 .addAction(R.drawable.ic_stop_white_36dp, null, MusicWidget.getPendingIntent(context, MusicWidget.ACTION_STOP))
+                .setLargeIcon(song.albumArt)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_stat_name)
-                .setTicker(title)
+                .setTicker(song.title)
                 .setWhen(System.currentTimeMillis())
-                .setContentTitle(title)
-                .setContentText(artist)
+                .setContentTitle(song.title)
+                .setContentText(song.artist)
                 .setOngoing(true)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .setStyle(androidx.media.app.NotificationCompat.MediaStyle()
+                        .setMediaSession(mediaSession)
                         .setShowActionsInCompactView(1, 2, 3))
     }
 
-    fun update(title: String, artist: String, isPlaying: Boolean, isShuffleOn: Boolean) {
-        notification = getNotificationBuilder(title, artist, isShuffleOn, isPlaying).build()
+    fun update(song: Song, isPlaying: Boolean, isShuffleOn: Boolean, mediaSession: MediaSessionCompat.Token) {
+        notification = getNotificationBuilder(song, isShuffleOn, isPlaying, mediaSession)
+                .build()
         manager.notify(notificationID, notification)
     }
 }

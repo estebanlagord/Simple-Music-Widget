@@ -2,6 +2,7 @@ package com.smartpocket.musicwidget
 
 import androidx.multidex.MultiDexApplication
 import com.smartpocket.musicwidget.activities.SongListVM
+import com.smartpocket.musicwidget.backend.AlbumArtLoader
 import com.smartpocket.musicwidget.backend.MusicLoader
 import com.smartpocket.musicwidget.backend.SongListLoader
 import org.koin.android.ext.koin.androidContext
@@ -22,7 +23,8 @@ class MyApplication : MultiDexApplication() {
     }
 
     val appModule = module {
-        single { MusicLoader(get()) }
+        single { AlbumArtLoader(get()) }
+        single { MusicLoader(get(), get()) }
         single { SongListLoader(get()) }
         viewModel { SongListVM(get()) }
     }

@@ -220,6 +220,11 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
             remoteViews.setTextViewText(R.id.textViewTitle, song.getTitle());
             remoteViews.setTextViewText(R.id.textViewArtist, song.getArtist());
             remoteViews.setTextViewText(R.id.textViewDuration, song.getDurationStr());
+            if (song.getAlbumArt() != null) {
+                remoteViews.setImageViewBitmap(R.id.ivAlbumArt, song.getAlbumArt());
+            } else {
+                remoteViews.setImageViewResource(R.id.ivAlbumArt, R.drawable.ic_launcher);
+            }
             if (currFlipperState == ViewFlipperState.STOPPED) {
                 remoteViews.setDisplayedChild(R.id.viewFlipper, ViewFlipperState.PLAYING.ordinal());
             }

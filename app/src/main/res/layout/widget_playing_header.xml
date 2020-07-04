@@ -10,7 +10,7 @@
     android:paddingBottom="4dp">
 
     <ImageView
-        android:id="@+id/imageViewHeadphones"
+        android:id="@+id/ivAlbumArt"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"

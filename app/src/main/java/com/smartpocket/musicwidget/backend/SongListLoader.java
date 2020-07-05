@@ -21,7 +21,7 @@ public class SongListLoader {
 
 
         //Some audio may be explicitly marked as not being music
-        String selection = MusicLoader.getDefaultSelection();
+        String selection = MusicLoader.DEFAULT_SELECTION;
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
@@ -56,7 +56,7 @@ public class SongListLoader {
 
 
         //Some audio may be explicitly marked as not being music
-        String selection = MusicLoader.getDefaultSelection() + " and "
+        String selection = MusicLoader.DEFAULT_SELECTION + " and "
                 + "( " + MediaStore.Audio.Media.ARTIST + " LIKE ? or "
                 + MediaStore.Audio.Media.TITLE + " LIKE ? )";
 

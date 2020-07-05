@@ -51,14 +51,14 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
     }
 
     override fun onItemClick(position: Int) {
-        check(mCursor.moveToPosition(position)) { "couldn't move cursor to position $position" }
-        listener.onSongSelected(getSongFromCurrentCursorPos(mCursor))
+        check(cursor?.moveToPosition(position) == true) { "couldn't move cursor to position $position" }
+        listener.onSongSelected(getSongFromCurrentCursorPos(cursor!!))
     }
 
     override fun getSectionTitle(position: Int): String {
         var result = ""
         val cursor = cursor
-        var artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+        var artist = cursor?.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
         if (artist != null) {
             artist = artist.trim { it <= ' ' }
             if (StringUtils.isNotBlank(artist) && !artist.equals("<unknown>", ignoreCase = true)) {

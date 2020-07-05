@@ -32,7 +32,7 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
         albumArtLoader.addAlbumArtPath(song)
         Glide.with(context)
                 .load(song.albumArtPath)
-                .fallback(R.drawable.ic_launcher)
+                .fallback(R.drawable.album_white)
                 .into(holder.albumArt)
     }
 

@@ -24,3 +24,12 @@
 
 #Fix for ClassNotFoundException while inflating nav_graph.xml
 -keep class * extends androidx.fragment.app.Fragment{}
+
+#Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder

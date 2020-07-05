@@ -5,22 +5,33 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="70dp"
     android:background="?android:attr/selectableItemBackground"
+    android:minHeight="70dp"
     android:paddingStart="24dp"
     android:paddingTop="6dp"
     android:paddingEnd="24dp"
     android:paddingBottom="6dp">
 
+    <ImageView
+        android:id="@+id/albumArt"
+        android:layout_width="@dimen/album_art_size_in_list"
+        android:layout_height="@dimen/album_art_size_in_list"
+        android:src="@drawable/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/foreground_material_dark"
         app:layout_constraintBottom_toTopOf="@+id/textArtist"
         app:layout_constraintEnd_toStartOf="@+id/textDuration"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/albumArt"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Song Title" />

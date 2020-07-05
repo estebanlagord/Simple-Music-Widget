@@ -29,11 +29,11 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
         holder.title.text = song.title
         holder.duration.text = song.durationStr
 
-/*        val albumArt = albumArtLoader.getAlbumArtPath(song)
+        albumArtLoader.addAlbumArtPath(song)
         Glide.with(context)
-                .load(albumArt)
+                .load(song.albumArtPath)
                 .fallback(R.drawable.ic_launcher)
-                .into(holder.albumArt)*/
+                .into(holder.albumArt)
     }
 
     private fun getSongFromCurrentCursorPos(cursor: Cursor): Song {

@@ -7,6 +7,7 @@ import com.smartpocket.musicwidget.model.Song
 
 class AlbumArtLoader(val context: Context) {
 
+    private val TAG = javaClass.simpleName
     private val contentResolver = context.contentResolver
 
     fun getAlbumArtPath(song: Song): String? {
@@ -24,10 +25,13 @@ class AlbumArtLoader(val context: Context) {
             }
             cur.close()
         }
+//        Log.d(TAG, "Getting album art path for ${song.artist} - ${song.title}: $result")
         return result
     }
 
     fun addAlbumArtPath(song: Song) {
-        song.albumArtPath = getAlbumArtPath(song)
+        if (song.albumArtPath.isNullOrBlank()) {
+            song.albumArtPath = getAlbumArtPath(song)
+        }
     }
 }

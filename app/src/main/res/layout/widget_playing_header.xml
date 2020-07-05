@@ -7,14 +7,17 @@
     android:paddingLeft="8dp"
     android:paddingTop="4dp"
     android:paddingRight="8dp"
-    android:paddingBottom="4dp">
+    android:paddingBottom="4dp"
+    tools:background="@drawable/appwidget_dark_bg"
+    tools:layout_height="100dp">
 
     <ImageView
         android:id="@+id/ivAlbumArt"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
         android:adjustViewBounds="true"
+        android:maxWidth="150dp"
         android:src="@drawable/ic_launcher"
         tools:ignore="ContentDescription" />
 
@@ -32,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="Titulo"
+            tools:text="Title"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -47,7 +50,7 @@
             android:layout_toStartOf="@id/textViewDuration"
             android:layout_toLeftOf="@id/textViewDuration"
             android:singleLine="true"
-            android:text="Artista"
+            tools:text="Artist"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
 

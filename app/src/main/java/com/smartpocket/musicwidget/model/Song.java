@@ -45,6 +45,10 @@ public class Song implements Serializable {
         return df.format(new Date(duration));
     }
 
+    public long getDuration() {
+        return duration;
+    }
+
     public long getAlbumId() {
         return albumId;
     }

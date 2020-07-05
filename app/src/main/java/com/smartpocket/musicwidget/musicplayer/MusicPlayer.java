@@ -99,4 +99,8 @@ public class MusicPlayer implements OnCompletionListener {
             e.printStackTrace();
         }
     }
+
+    public long getPosition() {
+        return player == null ? 0 : player.getCurrentPosition();
+    }
 }

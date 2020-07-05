@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.media.MediaBrowserCompat;
+import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.telephony.PhoneStateListener;
@@ -51,6 +52,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
     public static boolean isRunning = false;
     private static final String TAG = "Music Service";
     private static final int ONGOING_NOTIFICATION_ID = 1;
+    private static final float PLAYBACK_SPEED = 1.0f;
 
     private final Lazy<MusicLoader> musicLoader = inject(MusicLoader.class);
     private MediaSessionCompat mediaSession;
@@ -75,16 +77,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
         mediaSession = new MediaSessionCompat(getApplicationContext(), TAG);
 
         // Set an initial PlaybackState with ACTION_PLAY, so media buttons can start the player
-        mediaSession.setPlaybackState(
-                new PlaybackStateCompat.Builder()
-                        .setActions(PlaybackStateCompat.ACTION_PLAY
-                                | PlaybackStateCompat.ACTION_STOP
-                                | PlaybackStateCompat.ACTION_PAUSE
-                                | PlaybackStateCompat.ACTION_PLAY_PAUSE
-                                | PlaybackStateCompat.ACTION_SKIP_TO_NEXT
-                                | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
-                                | PlaybackStateCompat.ACTION_SET_SHUFFLE_MODE)
-                        .build());
+        mediaSession.setPlaybackState(getPlaybackStateBuilder().build());
 
         // MySessionCallback() has methods that handle callbacks from a media controller
         mediaSession.setCallback(new MySessionCallback(getApplicationContext()));
@@ -94,6 +87,17 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
         setSessionToken(mediaSession.getSessionToken());
 
         listenForPhoneCalls();
+    }
+
+    private PlaybackStateCompat.Builder getPlaybackStateBuilder() {
+        return new PlaybackStateCompat.Builder()
+                .setActions(PlaybackStateCompat.ACTION_PLAY
+                        | PlaybackStateCompat.ACTION_STOP
+                        | PlaybackStateCompat.ACTION_PAUSE
+                        | PlaybackStateCompat.ACTION_PLAY_PAUSE
+                        | PlaybackStateCompat.ACTION_SKIP_TO_NEXT
+                        | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+                        | PlaybackStateCompat.ACTION_SET_SHUFFLE_MODE);
     }
 
     private void listenForPhoneCalls() {
@@ -206,6 +210,9 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
         if (player != null && !player.isStopped())
             stopMusic();
 
+        if (mediaSession != null)
+            mediaSession.release();
+
         super.onDestroy();
     }
 
@@ -217,6 +224,7 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
         RemoteViews remoteViews = MusicWidget.getRemoteViews(this);
 
         if (song != null) {
+            setMetadata(song);
             remoteViews.setTextViewText(R.id.textViewTitle, song.getTitle());
             remoteViews.setTextViewText(R.id.textViewArtist, song.getArtist());
             remoteViews.setTextViewText(R.id.textViewDuration, song.getDurationStr());
@@ -295,15 +303,38 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
     private void playMusic() throws IOException {
         Log.d(TAG, "PLAY");
         Song song = musicLoader.getValue().getCurrent();
+        long position = 0;
 
         if (player.isPaused()) {
             player.play();
+            position = player.getPosition();
         } else {
             player.setSong(song, true);
         }
 
+        setPlaybackState(position, PlaybackStateCompat.STATE_PLAYING);
+
         updateUI(song, true);
         Log.i("Music Service", "Playing: " + song.getTitle());
+    }
+
+    private void setPlaybackState(long position, int statePlaying) {
+        if (mediaSession != null) {
+            mediaSession.setPlaybackState(getPlaybackStateBuilder()
+                    .setState(statePlaying, position, PLAYBACK_SPEED)
+                    .build());
+        }
+    }
+
+    private void setMetadata(Song song) {
+        if (mediaSession != null && song != null) {
+            mediaSession.setMetadata(new MediaMetadataCompat.Builder()
+                    .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, song.getAlbumArt())
+                    .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, song.getArtist())
+                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE, song.getTitle())
+                    .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, song.getDuration())
+                    .build());
+        }
     }
 
 
@@ -315,6 +346,8 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
 
             player.pause();
             Log.d(TAG, "Music paused");
+
+            setPlaybackState(player.getPosition(), PlaybackStateCompat.STATE_PAUSED);
         }
     }
 
@@ -322,6 +355,8 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
     private void stopMusic() {
         Log.d(TAG, "STOP MUSIC");
         isRunning = false;
+
+        setPlaybackState(player.getPosition(), PlaybackStateCompat.STATE_STOPPED);
 
         player.stop();
         updateUI(null, false);
@@ -339,6 +374,8 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
             Song nextSong = musicLoader.getValue().getNext();
             player.setSong(nextSong, false);
 
+            setPlaybackState(0, wasPlaying ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED);
+
             updateUI(nextSong, wasPlaying);
         }
     }
@@ -350,6 +387,8 @@ public class MusicService extends MediaBrowserServiceCompat implements MusicPlay
             boolean wasPlaying = player.isPlaying();
             Song prevSong = musicLoader.getValue().getPrevious();
             player.setSong(prevSong, false);
+
+            setPlaybackState(0, wasPlaying ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED);
 
             updateUI(prevSong, wasPlaying);
         }

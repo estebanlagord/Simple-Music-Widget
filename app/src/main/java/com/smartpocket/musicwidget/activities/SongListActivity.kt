@@ -118,10 +118,11 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         })
 
         // Associate searchable configuration with the SearchView
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = searchItem.actionView as SearchView
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.setOnQueryTextListener(this)
+        (searchItem.actionView as SearchView).also {
+            val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+            it.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            it.setOnQueryTextListener(this)
+        }
 
         fabBtn.setOnClickListener {
             if (searchItem.isActionViewExpanded) searchItem.collapseActionView()

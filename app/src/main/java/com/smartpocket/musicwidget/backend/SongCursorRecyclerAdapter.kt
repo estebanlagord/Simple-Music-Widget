@@ -19,30 +19,33 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
     : CursorRecyclerAdapter<SongViewHolder>(cursor), ItemClickListener, SectionTitleProvider {
 
     override fun onBindViewHolder(holder: SongViewHolder, cursor: Cursor) {
-        val song = getSongFromCurrentCursorPos(cursor)
-        if (song.isUnknownArtist) {
-            holder.artist.visibility = View.GONE
-        } else {
-            holder.artist.visibility = View.VISIBLE
+        holder.apply {
+            val song = getSongFromCurrentCursorPos(cursor)
+            if (song.isUnknownArtist) {
+                artist.visibility = View.GONE
+            } else {
+                artist.visibility = View.VISIBLE
+            }
+            artist.text = song.artist
+            title.text = song.title
+            duration.text = song.getDurationStr()
+
+            albumArtLoader.addAlbumArtPath(song)
+            Glide.with(context)
+                    .load(song.albumArtPath)
+                    .fallback(R.drawable.album_white)
+                    .into(albumArt)
         }
-        holder.artist.text = song.artist
-        holder.title.text = song.title
-        holder.duration.text = song.getDurationStr()
-
-        albumArtLoader.addAlbumArtPath(song)
-        Glide.with(context)
-                .load(song.albumArtPath)
-                .fallback(R.drawable.album_white)
-                .into(holder.albumArt)
     }
 
-    private fun getSongFromCurrentCursorPos(cursor: Cursor): Song {
-        val artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
-        val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
-        val duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
-        val albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
-        return Song(0, title, artist, duration, albumId)
-    }
+    private fun getSongFromCurrentCursorPos(cursor: Cursor): Song =
+            with(cursor) {
+                val artist = getString(getColumnIndex(MediaStore.Audio.Media.ARTIST))
+                val title = getString(getColumnIndex(MediaStore.Audio.Media.TITLE))
+                val duration = getLong(getColumnIndex(MediaStore.Audio.Media.DURATION))
+                val albumId = getLong(getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+                return Song(0, title, artist, duration, albumId)
+            }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         val view = LayoutInflater.from(parent.context)

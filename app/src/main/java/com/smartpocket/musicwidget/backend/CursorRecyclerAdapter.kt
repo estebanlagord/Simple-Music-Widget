@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class CursorRecyclerAdapter<VH : RecyclerView.ViewHolder?>(c: Cursor?) : RecyclerView.Adapter<VH>() {
     private var mDataValid = false
-    var cursor: Cursor? = null
     private var mRowIDColumn = 0
+    var cursor: Cursor? = null
 
     init {
         val cursorPresent = c != null

@@ -27,7 +27,7 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
         }
         holder.artist.text = song.artist
         holder.title.text = song.title
-        holder.duration.text = song.durationStr
+        holder.duration.text = song.getDurationStr()
 
         albumArtLoader.addAlbumArtPath(song)
         Glide.with(context)

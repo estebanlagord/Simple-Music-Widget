@@ -22,7 +22,7 @@ class SongListVM(val songLoader: SongListLoader) : ViewModel() {
             Log.i(tag, "Getting song list cursor for query: $query")
 //            delay(5000)
             val cursor = if (query.isNullOrBlank())
-                songLoader.cursor
+                songLoader.getCursor()
             else
                 songLoader.getFilteredCursor(query)
             cursorLD.postValue(cursor)

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.futuremind.recyclerviewfastscroll.SectionTitleProvider
 import com.smartpocket.musicwidget.R
 import com.smartpocket.musicwidget.model.Song
@@ -33,7 +34,8 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
             albumArtLoader.addAlbumArtPath(song)
             Glide.with(context)
                     .load(song.albumArtPath)
-                    .fallback(R.drawable.album_white)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .placeholder(R.drawable.album_white)
                     .into(albumArt)
         }
     }

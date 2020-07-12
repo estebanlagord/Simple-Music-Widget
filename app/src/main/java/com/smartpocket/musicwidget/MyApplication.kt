@@ -26,6 +26,6 @@ class MyApplication : MultiDexApplication() {
         single { AlbumArtLoader(get()) }
         single { MusicLoader(get(), get()) }
         single { SongListLoader(get()) }
-        viewModel { SongListVM(get()) }
+        viewModel { SongListVM(get(), get()) }
     }
 }

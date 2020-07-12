@@ -12,6 +12,29 @@ class AlbumArtLoader(val context: Context) {
     private val contentResolver = context.contentResolver
     private val albumArtCache = ConcurrentHashMap<Long, String>()
 
+    fun cacheAllAlbumArt() {
+//        Log.d(TAG, "Caching album art for all - started")
+        val projection = arrayOf(MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART)
+        val cur: Cursor? = contentResolver.query(
+                MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                projection, null, null, null)
+
+        if (cur != null) {
+            val idColumnIndex = cur.getColumnIndex(MediaStore.Audio.Albums._ID)
+            val pathColumnIndex = cur.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART)
+            var path: String?
+            var id: Long
+
+            while (cur.moveToNext()) {
+                id = cur.getLong(idColumnIndex)
+                path = cur.getString(pathColumnIndex)
+                albumArtCache[id] = path ?: ""
+            }
+            cur.close()
+        }
+//        Log.d(TAG, "Caching album art for all - finished")
+    }
+
     private fun getAlbumArtPath(song: Song): String? {
         if (albumArtCache.containsKey(song.albumId)) {
 //            Log.d(TAG, "Found album art path in cache for: $song")
@@ -32,7 +55,7 @@ class AlbumArtLoader(val context: Context) {
                 }
                 cur.close()
             }
-//        Log.d(TAG, "Getting album art path for ${song.artist} - ${song.title}: $result")
+//            Log.d(TAG, "Retrieved album art path for ${song.artist} - ${song.title}: $result")
             return result
         }
     }

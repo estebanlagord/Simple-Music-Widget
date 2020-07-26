@@ -1,9 +1,11 @@
 package com.smartpocket.musicwidget.musicplayer
 
 import android.content.Context
+import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.MediaPlayer.OnCompletionListener
+import android.os.Build
 import android.util.Log
 import com.smartpocket.musicwidget.model.Song
 import java.io.IOException
@@ -33,7 +35,14 @@ class MusicPlayer(private val context: Context) : OnCompletionListener {
             localPlayer.reset()
         }
         with(localPlayer) {
-            setAudioStreamType(AudioManager.STREAM_MUSIC)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                setAudioAttributes(AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build())
+            } else {
+                setAudioStreamType(AudioManager.STREAM_MUSIC)
+            }
             setDataSource(context, song.getURI())
             setOnPreparedListener { mp: MediaPlayer? ->
                 if (mp != null && (forcePlay || wasPlaying))

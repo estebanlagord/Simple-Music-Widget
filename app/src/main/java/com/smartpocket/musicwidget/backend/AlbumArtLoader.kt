@@ -2,7 +2,11 @@ package com.smartpocket.musicwidget.backend
 
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.provider.MediaStore
+import android.util.Log
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.smartpocket.musicwidget.model.Song
 import java.util.concurrent.ConcurrentHashMap
 
@@ -37,7 +41,7 @@ class AlbumArtLoader(val context: Context) {
 
     private fun getAlbumArtPath(song: Song): String? {
         if (albumArtCache.containsKey(song.albumId)) {
-//            Log.d(TAG, "Found album art path in cache for: $song")
+            Log.d(TAG, "Found album art path in cache for: $song")
             return albumArtCache[song.albumId]?.ifEmpty { null }
         } else {
             var result: String? = null
@@ -55,14 +59,24 @@ class AlbumArtLoader(val context: Context) {
                 }
                 cur.close()
             }
-//            Log.d(TAG, "Retrieved album art path for ${song.artist} - ${song.title}: $result")
+            Log.d(TAG, "Retrieved album art path for ${song.artist} - ${song.title}: $result")
             return result
         }
     }
 
-    fun addAlbumArtPath(song: Song) {
-        if (song.albumArtPath.isNullOrBlank()) {
-            song.albumArtPath = getAlbumArtPath(song)
-        }
-    }
+    fun getAlbumArt(song: Song): Bitmap? =
+            try {
+                Glide.with(context)
+//                    .load(bitmap)
+                        .asBitmap()
+                        .load(song.albumArtPath)
+//                        .fallback(fallbackRes)
+//                        .error(fallbackRes)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .submit()
+                        .get()
+            } catch (e: Exception) {
+//                e.printStackTrace()
+                null
+            }
 }

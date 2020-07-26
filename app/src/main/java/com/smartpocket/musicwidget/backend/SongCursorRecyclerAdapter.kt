@@ -31,8 +31,18 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
             title.text = song.title
             duration.text = song.getDurationStr()
 
-            albumArtLoader.addAlbumArtPath(song)
+//            albumArtLoader.addAlbumArtPath(song)
+//            context.contentResolver.loadThumbnail()
+/*            var bitmap: Bitmap? = null
+            try {
+                Log.i("SongCursorRecyclerAdapter", "loading art for $song with album ID ${song.albumId}")
+                bitmap = albumArtLoader.loadAlbumArt(song)
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            }*/
+
             Glide.with(context)
+//                    .load(bitmap)
                     .load(song.albumArtPath)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .placeholder(R.drawable.album_white)
@@ -42,11 +52,12 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
 
     private fun getSongFromCurrentCursorPos(cursor: Cursor): Song =
             with(cursor) {
+                val id = getLong(getColumnIndex(MediaStore.Audio.Media._ID))
                 val artist = getString(getColumnIndex(MediaStore.Audio.Media.ARTIST))
                 val title = getString(getColumnIndex(MediaStore.Audio.Media.TITLE))
                 val duration = getLong(getColumnIndex(MediaStore.Audio.Media.DURATION))
                 val albumId = getLong(getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
-                return Song(0, title, artist, duration, albumId)
+                return Song(id, title, artist, duration, albumId)
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {

@@ -32,8 +32,8 @@ class SongListVM(private val songLoader: SongListLoader,
             cursorLD.postValue(cursor)
             Log.i(tag, "Song list cursor retrieved")
         }
-        viewModelScope.launch(Dispatchers.IO) {
-            albumArtLoader.cacheAllAlbumArt()
-        }
+/*        viewModelScope.launch(Dispatchers.IO) {
+//            albumArtLoader.cacheAllAlbumArt()
+        }*/
     }
 }

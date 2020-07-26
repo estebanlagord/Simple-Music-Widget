@@ -88,7 +88,6 @@ class MusicLoader(private val context: Context, private val albumArtLoader: Albu
         val id = cur.getLong(cur.getColumnIndex(MediaStore.Audio.Media._ID))
         val albumId = cur.getLong(cur.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
         val song = Song(id, title, artist, duration, albumId)
-        albumArtLoader.addAlbumArtPath(song)
         return song
     }
 

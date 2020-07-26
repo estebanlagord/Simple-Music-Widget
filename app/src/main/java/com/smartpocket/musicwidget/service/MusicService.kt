@@ -24,6 +24,7 @@ import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import androidx.media.MediaBrowserServiceCompat
 import androidx.media.session.MediaButtonReceiver
 import com.smartpocket.musicwidget.MusicWidget
@@ -32,7 +33,7 @@ import com.smartpocket.musicwidget.activities.ConfigurationActivity
 import com.smartpocket.musicwidget.activities.needsToRequestPermissions
 import com.smartpocket.musicwidget.backend.AlbumArtLoader
 import com.smartpocket.musicwidget.backend.MusicLoader
-import com.smartpocket.musicwidget.backend.MusicNotification
+import com.smartpocket.musicwidget.backend.MusicNotificationBuilder
 import com.smartpocket.musicwidget.model.Song
 import com.smartpocket.musicwidget.musicplayer.MusicPlayer
 import com.smartpocket.musicwidget.musicplayer.MusicPlayerCompletionListener
@@ -50,9 +51,10 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
     private lateinit var mediaSession: MediaSessionCompat
     private lateinit var player: MusicPlayer
-    private var mNotification: MusicNotification? = null
     private var currFlipperState = ViewFlipperState.STOPPED
-    private lateinit var defaultAlbumArt: Bitmap
+    private val defaultAlbumArt: Bitmap by lazy { BitmapFactory.decodeResource(resources, R.drawable.album_white) }
+    private val notificationManager: NotificationManager by lazy { getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager }
+    private val notificationBuilder: MusicNotificationBuilder by lazy { MusicNotificationBuilder(this, channelId) }
 
     internal enum class ViewFlipperState {
         STOPPED, PLAYING
@@ -63,6 +65,10 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
         /* let's wait until the debugger attaches */
         //android.os.Debug.waitForDebugger();
         Log.d(TAG, "onCreate()")
+        startForeground(ONGOING_NOTIFICATION_ID, NotificationCompat.Builder(this, channelId)
+                .setContentTitle("")
+                .setContentText("").build())
+
         player = MusicPlayer(this).also {
             it.setOnCompletionListener(this)
         }
@@ -156,7 +162,7 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
 
         // update the shuffle icon
         if (player.isStopped()) {
-            updateUI(null, null)
+            stopMusic()
         } else {
             val song = musicLoader.getCurrent()
             updateUI(song, player.isPlaying())
@@ -177,14 +183,12 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
         super.onDestroy()
     }
 
-    private fun updateUI(song: Song?, isPlaying: Boolean?) {
+    private fun updateUI(song: Song?, isPlaying: Boolean) {
         // Update widget
         coroutineScope.launch {
             var loadedAlbumArt: Bitmap? = null
             withContext(Dispatchers.IO) {
                 loadedAlbumArt = song?.let { albumArtLoader.getAlbumArt(song) }
-                if (this@MusicService::defaultAlbumArt.isInitialized.not())
-                    defaultAlbumArt = BitmapFactory.decodeResource(resources, R.drawable.album_white)
             }
             val albumArt = loadedAlbumArt ?: defaultAlbumArt
 
@@ -211,13 +215,12 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
                 }
                 ViewFlipperState.STOPPED
             }
-            if (isPlaying != null) {
-                if (isPlaying) remoteViews.setImageViewResource(R.id.button_play_pause, R.drawable.ic_pause_white_36dp)
-                else remoteViews.setImageViewResource(R.id.button_play_pause, R.drawable.ic_play_arrow_white_36dp)
-            }
+            val playPauseIconRes = if (isPlaying) R.drawable.ic_pause_white_36dp else R.drawable.ic_play_arrow_white_36dp
+            remoteViews.setImageViewResource(R.id.button_play_pause, playPauseIconRes)
+
             val isShuffleOn = musicLoader.isShuffleOn
-            if (isShuffleOn) remoteViews.setImageViewResource(R.id.button_shuffle, R.drawable.shuffle_on)
-            else remoteViews.setImageViewResource(R.id.button_shuffle, R.drawable.shuffle_off)
+            val shuffleIconRes = if (isShuffleOn) R.drawable.shuffle_on else R.drawable.shuffle_off
+            remoteViews.setImageViewResource(R.id.button_shuffle, shuffleIconRes)
 
             val thisWidget = ComponentName(this@MusicService, MusicWidget::class.java)
             val manager = AppWidgetManager.getInstance(this@MusicService)
@@ -225,16 +228,9 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
 
             // Create/Update a notification, to run the service in foreground
             if (song != null) {
-                if (mNotification == null) {
-                    mNotification = MusicNotification(this@MusicService, ONGOING_NOTIFICATION_ID,
-                            song, albumArt, isShuffleOn, mediaSession.sessionToken, channelId)
-                    startForeground(ONGOING_NOTIFICATION_ID, mNotification!!.notification)
-                } else {
-                    val isPlayingUnboxed = isPlaying ?: false
-                    mNotification?.update(song, albumArt, isPlayingUnboxed, isShuffleOn, mediaSession.sessionToken)
-                }
-            } else {
-                stopForeground(true)
+                val notification = notificationBuilder
+                        .build(song, albumArt, isPlaying, isShuffleOn, mediaSession.sessionToken)
+                notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
             }
         }
     }
@@ -257,7 +253,7 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
         val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW)
         channel.lightColor = Color.BLUE
         channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-        (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
+        notificationManager.createNotificationChannel(channel)
         return channelId
     }
 

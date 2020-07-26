@@ -106,10 +106,10 @@ class MusicLoader(private val context: Context, private val albumArtLoader: Albu
     }
 
     fun toggleShuffle() {
-        val newValue = !isShuffleOn
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        prefs.edit()
-                .putBoolean(IS_SHUFFLE_ON, newValue)
+        isShuffleOn = isShuffleOn.not()
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(IS_SHUFFLE_ON, isShuffleOn)
                 .apply()
         close() // to trigger a new query
     }

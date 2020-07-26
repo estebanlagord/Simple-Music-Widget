@@ -1,18 +1,14 @@
 package com.smartpocket.musicwidget.backend
 
 import android.content.Context
-import android.database.Cursor
 import android.graphics.Bitmap
-import android.provider.MediaStore
-import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.smartpocket.musicwidget.model.Song
-import java.util.concurrent.ConcurrentHashMap
 
 class AlbumArtLoader(val context: Context) {
 
-    private val TAG = javaClass.simpleName
+/*    private val TAG = javaClass.simpleName
     private val contentResolver = context.contentResolver
     private val albumArtCache = ConcurrentHashMap<Long, String>()
 
@@ -62,16 +58,14 @@ class AlbumArtLoader(val context: Context) {
             Log.d(TAG, "Retrieved album art path for ${song.artist} - ${song.title}: $result")
             return result
         }
-    }
+    }*/
 
     fun getAlbumArt(song: Song): Bitmap? =
             try {
                 Glide.with(context)
-//                    .load(bitmap)
                         .asBitmap()
+                        .override(512)
                         .load(song.albumArtPath)
-//                        .fallback(fallbackRes)
-//                        .error(fallbackRes)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .submit()
                         .get()

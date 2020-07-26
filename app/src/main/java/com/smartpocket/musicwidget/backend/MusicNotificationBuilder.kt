@@ -1,7 +1,6 @@
 package com.smartpocket.musicwidget.backend
 
 import android.app.Notification
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -13,25 +12,19 @@ import com.smartpocket.musicwidget.R
 import com.smartpocket.musicwidget.activities.SongListActivity
 import com.smartpocket.musicwidget.model.Song
 
-class MusicNotification(private val context: Context,
-                        private val notificationID: Int,
-                        song: Song,
-                        albumArt: Bitmap,
-                        isShuffleOn: Boolean,
-                        mediaSession: MediaSessionCompat.Token,
-                        private val channelId: String) {
+class MusicNotificationBuilder(private val context: Context,
+                               private val channelId: String) {
 
-    private val manager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    var notification: Notification = getNotificationBuilder(song, albumArt, isShuffleOn, true, mediaSession).build()
+    private val notificationIntent = Intent(context, SongListActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    private val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
 
-    private fun getNotificationBuilder(song: Song, albumArt: Bitmap, isShuffleOn: Boolean,
-                                       isPlaying: Boolean, mediaSession: MediaSessionCompat.Token)
-            : NotificationCompat.Builder {
-
-        val notificationIntent = Intent(context, SongListActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
+    fun build(song: Song,
+              albumArt: Bitmap,
+              isPlaying: Boolean,
+              isShuffleOn: Boolean,
+              mediaSession: MediaSessionCompat.Token): Notification {
         val shuffleIcon = if (isShuffleOn) R.drawable.shuffle_on else R.drawable.shuffle_off
         val playPauseIcon = if (isPlaying) R.drawable.ic_pause_white_36dp else R.drawable.ic_play_arrow_white_36dp
 
@@ -55,11 +48,6 @@ class MusicNotification(private val context: Context,
                 .setStyle(androidx.media.app.NotificationCompat.MediaStyle()
                         .setMediaSession(mediaSession)
                         .setShowActionsInCompactView(1, 2, 3))
-    }
-
-    fun update(song: Song, albumArt: Bitmap, isPlaying: Boolean, isShuffleOn: Boolean, mediaSession: MediaSessionCompat.Token) {
-        notification = getNotificationBuilder(song, albumArt, isShuffleOn, isPlaying, mediaSession)
                 .build()
-        manager.notify(notificationID, notification)
     }
 }

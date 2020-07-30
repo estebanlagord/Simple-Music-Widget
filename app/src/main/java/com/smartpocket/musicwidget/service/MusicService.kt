@@ -14,7 +14,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.IBinder
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
@@ -342,9 +341,8 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
         updateUI(song, true)
     }
 
-    override fun onBind(intent: Intent): IBinder? = null
-
-    override fun onGetRoot(clientPackageName: String, clientUid: Int, rootHints: Bundle?): BrowserRoot? = null
+    override fun onGetRoot(clientPackageName: String, clientUid: Int, rootHints: Bundle?): BrowserRoot? =
+            BrowserRoot(javaClass.name, null)
 
     override fun onLoadChildren(parentId: String, result: Result<List<MediaBrowserCompat.MediaItem>>) {}
 

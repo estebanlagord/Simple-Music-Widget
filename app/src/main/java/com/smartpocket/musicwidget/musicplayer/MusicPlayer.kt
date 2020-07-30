@@ -48,6 +48,10 @@ class MusicPlayer(private val context: Context) : OnCompletionListener {
                 if (mp != null && (forcePlay || wasPlaying))
                     mp.start()
             }
+/*            setOnErrorListener { _, what, extra ->
+                Log.e(TAG, "Playback error received - what: $what - extra: $extra")
+                true
+            }*/
             prepareAsync()
         }
         Log.d(TAG, "Changed song to: " + song.title)

@@ -116,10 +116,10 @@ class MusicLoader(private val context: Context, private val albumArtLoader: Albu
 
     fun jumpTo(song: Song) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = prefs.edit()
-        editor.putString(LAST_SONG_TITLE, song.title)
-        editor.putString(LAST_SONG_ARTIST, song.artist)
-        editor.apply()
+        prefs.edit()
+                .putString(LAST_SONG_TITLE, song.title)
+                .putString(LAST_SONG_ARTIST, song.artist)
+                .apply()
         cursor?.close()
         cursor = null
         isPrepared.set(false)
@@ -128,14 +128,16 @@ class MusicLoader(private val context: Context, private val albumArtLoader: Albu
     fun close() {
         val cur = cursor
         if (cur != null) {
-            // Save current song in a Shared Preference
-            val title = cur.getString(cur.getColumnIndex(MediaStore.Audio.Media.TITLE))
-            val artist = cur.getString(cur.getColumnIndex(MediaStore.Audio.Media.ARTIST))
-            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-            val editor = prefs.edit()
-            editor.putString(LAST_SONG_TITLE, title)
-            editor.putString(LAST_SONG_ARTIST, artist)
-            editor.apply()
+            if (cur.count > 0) {
+                // Save current song in a Shared Preference
+                val title = cur.getString(cur.getColumnIndex(MediaStore.Audio.Media.TITLE))
+                val artist = cur.getString(cur.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+                val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+                prefs.edit()
+                        .putString(LAST_SONG_TITLE, title)
+                        .putString(LAST_SONG_ARTIST, artist)
+                        .apply()
+            }
             cur.close()
             cursor = null
         }

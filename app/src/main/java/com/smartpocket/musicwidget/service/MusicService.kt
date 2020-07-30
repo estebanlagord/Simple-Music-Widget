@@ -151,8 +151,10 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
             }
         } catch (e: CursorIndexOutOfBoundsException) {
             Toast.makeText(this, R.string.toast_no_music_found, Toast.LENGTH_SHORT).show()
+            stopMusic()
         } catch (e: Exception) {
             e.printStackTrace()
+            stopMusic()
         }
     }
 

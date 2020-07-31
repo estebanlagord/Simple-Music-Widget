@@ -346,7 +346,8 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
     override fun onGetRoot(clientPackageName: String, clientUid: Int, rootHints: Bundle?): BrowserRoot? =
             BrowserRoot(javaClass.name, null)
 
-    override fun onLoadChildren(parentId: String, result: Result<List<MediaBrowserCompat.MediaItem>>) {}
+    override fun onLoadChildren(parentId: String, result: Result<List<MediaBrowserCompat.MediaItem>>) =
+            result.sendResult(listOf())
 
     companion object {
         @JvmField

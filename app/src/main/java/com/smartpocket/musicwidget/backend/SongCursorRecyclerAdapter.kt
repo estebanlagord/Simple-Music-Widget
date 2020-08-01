@@ -31,19 +31,9 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
             title.text = song.title
             duration.text = song.getDurationStr()
 
-//            albumArtLoader.addAlbumArtPath(song)
-//            context.contentResolver.loadThumbnail()
-/*            var bitmap: Bitmap? = null
-            try {
-                Log.i("SongCursorRecyclerAdapter", "loading art for $song with album ID ${song.albumId}")
-                bitmap = albumArtLoader.loadAlbumArt(song)
-            } catch (e: Throwable) {
-                e.printStackTrace()
-            }*/
-
             Glide.with(context)
-//                    .load(bitmap)
                     .load(song.albumArtPath)
+                    .override(ALBUM_ART_SIZE)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .placeholder(R.drawable.album_white)
                     .into(albumArt)

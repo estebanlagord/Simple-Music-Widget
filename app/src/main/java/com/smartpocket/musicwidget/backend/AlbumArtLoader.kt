@@ -6,6 +6,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.smartpocket.musicwidget.model.Song
 
+const val ALBUM_ART_SIZE = 512
+
 class AlbumArtLoader(val context: Context) {
 
 /*    private val TAG = javaClass.simpleName
@@ -64,7 +66,7 @@ class AlbumArtLoader(val context: Context) {
             try {
                 Glide.with(context)
                         .asBitmap()
-                        .override(512)
+                        .override(ALBUM_ART_SIZE)
                         .load(song.albumArtPath)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .submit()

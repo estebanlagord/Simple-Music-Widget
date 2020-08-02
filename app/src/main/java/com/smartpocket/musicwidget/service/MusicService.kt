@@ -128,7 +128,7 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
             openConfigActivity()
         } else {
             processStartCommand(intent)
-            MediaButtonReceiver.handleIntent(mediaSession, intent) //TODO ???
+            MediaButtonReceiver.handleIntent(mediaSession, intent)
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -310,13 +310,15 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
     }
 
     @Throws(IOException::class)
-    private fun nextSong() {
+    private fun nextSong(forcePlay: Boolean = false) {
         Log.d(TAG, "NEXT SONG")
-        val wasPlaying = player.isPlaying()
+        val willBePlaying = player.isPlaying() || forcePlay
         val nextSong = musicLoader.getNext()
-        player.setSong(nextSong, false)
-        setPlaybackState(0, if (wasPlaying) PlaybackStateCompat.STATE_PLAYING else PlaybackStateCompat.STATE_PAUSED)
-        updateUI(nextSong, wasPlaying)
+        player.setSong(nextSong, forcePlay)
+        setPlaybackState(0,
+                if (willBePlaying) PlaybackStateCompat.STATE_PLAYING
+                else PlaybackStateCompat.STATE_PAUSED)
+        updateUI(nextSong, willBePlaying)
     }
 
     @Throws(IOException::class)
@@ -337,10 +339,7 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
 
     @Throws(IOException::class)
     override fun onMusicCompletion() {
-        nextSong()
-        player.play()
-        val song = musicLoader.getCurrent()
-        updateUI(song, true)
+        nextSong(true) // will update the UI and play when ready (async)
     }
 
     override fun onGetRoot(clientPackageName: String, clientUid: Int, rootHints: Bundle?): BrowserRoot? =

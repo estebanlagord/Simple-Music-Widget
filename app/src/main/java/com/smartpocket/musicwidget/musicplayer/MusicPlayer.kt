@@ -45,17 +45,17 @@ class MusicPlayer(private val context: Context) : OnCompletionListener {
             setDataSource(context, song.getURI())
             setOnPreparedListener { mp ->
                 if (forcePlay || wasPlaying)
-                    mp.start()
+                        mp.start()
             }
             setOnCompletionListener(this@MusicPlayer)
             setOnErrorListener { mp, what, extra ->
                 Log.e(TAG, "Playback error received - what: $what - extra: $extra")
-                // reset the player
+                // reset the player, then nullify player to trigger the creation of a new object
                 mp.reset()
                 mp.release()
                 player = null
-                // returning false calls OnCompletionListener, to play the next song
-                false
+                onCompletion(mp) // skip to the next song
+                true
             }
             prepareAsync()
         }

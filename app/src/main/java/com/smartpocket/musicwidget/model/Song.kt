@@ -10,11 +10,11 @@ import java.util.*
 
 const val ALBUM_ART_PATH = "content://media/external/audio/albumart/"
 
-class Song(private val id: Long,
+class Song(val id: Long,
            val title: String,
            val artist: String,
            val duration: Long,
-           val albumId: Long)
+           albumId: Long)
     : Serializable {
 
     val albumArtPath: String = ALBUM_ART_PATH + albumId
@@ -26,7 +26,7 @@ class Song(private val id: Long,
 
     fun getURI(): Uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id)
 
-    fun getAlbumArtURI(): Uri = Uri.parse("$ALBUM_ART_PATH/$albumId")
+//    fun getAlbumArtURI(): Uri = Uri.parse("$ALBUM_ART_PATH/$albumId")
 
     val isUnknownArtist: Boolean = StringUtils.isBlank(artist)
             || artist.equals("<unknown>", ignoreCase = true)

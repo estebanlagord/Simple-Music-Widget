@@ -24,7 +24,7 @@ class MyApplication : MultiDexApplication() {
 
     val appModule = module {
         single { AlbumArtLoader(get()) }
-        single { MusicLoader(get(), get()) }
+        single { MusicLoader(get()) }
         single { SongListLoader(get()) }
         viewModel { SongListVM(get(), get()) }
     }

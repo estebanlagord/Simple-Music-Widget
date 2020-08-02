@@ -30,7 +30,6 @@ class MusicPlayer(private val context: Context) : OnCompletionListener {
         if (localPlayer == null) {
             localPlayer = MediaPlayer()
             player = localPlayer
-            localPlayer.setOnCompletionListener(this)
         } else {
             localPlayer.reset()
         }
@@ -44,14 +43,20 @@ class MusicPlayer(private val context: Context) : OnCompletionListener {
                 setAudioStreamType(AudioManager.STREAM_MUSIC)
             }
             setDataSource(context, song.getURI())
-            setOnPreparedListener { mp: MediaPlayer? ->
-                if (mp != null && (forcePlay || wasPlaying))
+            setOnPreparedListener { mp ->
+                if (forcePlay || wasPlaying)
                     mp.start()
             }
-/*            setOnErrorListener { _, what, extra ->
+            setOnCompletionListener(this@MusicPlayer)
+            setOnErrorListener { mp, what, extra ->
                 Log.e(TAG, "Playback error received - what: $what - extra: $extra")
-                true
-            }*/
+                // reset the player
+                mp.reset()
+                mp.release()
+                player = null
+                // returning false calls OnCompletionListener, to play the next song
+                false
+            }
             prepareAsync()
         }
         Log.d(TAG, "Changed song to: " + song.title)

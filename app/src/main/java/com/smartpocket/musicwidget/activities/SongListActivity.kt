@@ -69,9 +69,8 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             }
         }
 
-        viewModel.cursorLD.observe(this, Observer {
-            adapter.changeCursor(it)
-        })
+        viewModel.cursorLD.observe(this, Observer(adapter::changeCursor))
+        viewModel.currentPosLD.observe(this, Observer(listView::scrollToPosition))
 
         if (needsToRequestPermissions()) {
             val intent = Intent(this, ConfigurationActivity::class.java)

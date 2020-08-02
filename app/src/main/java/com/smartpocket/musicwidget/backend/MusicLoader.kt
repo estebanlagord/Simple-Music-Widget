@@ -8,7 +8,7 @@ import androidx.preference.PreferenceManager
 import com.smartpocket.musicwidget.model.Song
 import java.util.concurrent.atomic.AtomicBoolean
 
-class MusicLoader(private val context: Context, private val albumArtLoader: AlbumArtLoader) {
+class MusicLoader(private val context: Context) {
 
     var isShuffleOn = false
     private var cursor: Cursor? = null
@@ -63,6 +63,7 @@ class MusicLoader(private val context: Context, private val albumArtLoader: Albu
             while (cur.moveToNext()) {
                 val title = cur.getString(cur.getColumnIndex(MediaStore.Audio.Media.TITLE))
                 val artist = cur.getString(cur.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+                //TODO consider comparing the ID only, for speed
                 if (title == lastSongTitle && artist == lastSongArtist) {
                     Log.d(TAG, "Song found!")
                     return
@@ -87,8 +88,7 @@ class MusicLoader(private val context: Context, private val albumArtLoader: Albu
         val duration = cur.getLong(cur.getColumnIndex(MediaStore.Audio.Media.DURATION))
         val id = cur.getLong(cur.getColumnIndex(MediaStore.Audio.Media._ID))
         val albumId = cur.getLong(cur.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
-        val song = Song(id, title, artist, duration, albumId)
-        return song
+        return Song(id, title, artist, duration, albumId)
     }
 
     fun getNext(): Song {

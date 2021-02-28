@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.smartpocket.musicwidget"
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         multiDexEnabled true
     }
 
@@ -40,17 +40,17 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core:1.3.1'
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core:1.3.2'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation "androidx.media:media:1.1.0"
+    implementation 'androidx.media:media:1.2.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "androidx.preference:preference-ktx:1.1.1"
-    implementation 'com.google.android.gms:play-services-ads:19.3.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.gms:play-services-ads:19.7.0'
+    implementation 'com.google.android.material:material:1.3.0'
 //    implementation 'com.google.firebase:firebase-appindexing:19.1.0'
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -62,6 +62,6 @@ dependencies {
     implementation 'com.futuremind.recyclerfastscroll:fastscroll:0.2.5'
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.12.0'
 }

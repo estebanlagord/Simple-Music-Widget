@@ -6,7 +6,7 @@ import android.provider.MediaStore
 import android.util.Log
 
 class SongListLoader(private val context: Context) {
-    private val TAG = "Music Loader"
+    private val TAG = "SongListLoader"
     private var cur: Cursor? = null// Query failed...
 
     //Some audio may be explicitly marked as not being music

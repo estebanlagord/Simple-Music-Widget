@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidGradleBuildConfiguration">
+    <option name="COMMAND_LINE_OPTIONS" value="--warning-mode all" />
+  </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config>
+        <target>android-23</target>
+      </config>
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="LOGCAT_FORMAT_STRING" value="%1$s %3$s %4$c/%5$s: %6$s" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fd0c47fa-b7ac-479d-9675-ab6dee9e0f3d" name="Default" comment="Improved recovery from MediaPlayer's error state (tested OK)">
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/MyApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/MyApplication.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/SongListActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/SongListActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/SongListVM.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/SongListVM.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/backend/SongCursorRecyclerAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/backend/SongCursorRecyclerAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/backend/SongListLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/backend/SongListLoader.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_4_API_23" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="MusicWidget" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="valueResourceFile" />
+        <option value="Kotlin Interface" />
+        <option value="layoutResourceFile" />
+        <option value="Class" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="EXPORT_PRIVATE_KEY" value="false" />
+    <option name="KEY_STORE_PATH" value="E:\workspaceAndroid\keystore\keystore" />
+    <option name="KEY_ALIAS" value="smart pocket" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="727640f276f5ffc61e354ac933685eb21c6779d5" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\workspaceAndroid\MusicWidget\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1cB0sN0vZLiibuSsxmLxQTqVyv5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ApkExportedModule" value="app" />
+    <property name="BundleExportedModule" value="app" />
+    <property name="DEBUGGABLE_DEVICE" value="samsung-sm_g955f-ce10182a4bdb9f3403" />
+    <property name="DEBUGGABLE_PROCESS" value="com.smartpocket.musicwidget" />
+    <property name="DEBUGGER_ID" value="Java" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="3200019fe81526b3" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-07-31T23:11:13.162Z" />
+    <property name="ExportApk.ApkPath" value="C:\workspaceAndroid\MusicWidget" />
+    <property name="ExportApk.BuildType" value="release" />
+    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="ExportApk.Flavors" value="" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="ScreenshotViewer.SavePath" value="E:/workspaceAndroid/MusicWidget - Google Play contents" />
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/sdk" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1526135697160" />
+    <property name="com.developerphil.adbidea.selecteddevices" value="ce10182a4bdb9f3403" />
+    <property name="device.picker.selection" value="LGD855f293fa8" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="last_opened_file_path" value="E:/workspaceAndroid/MusicWidget - Google Play contents" />
+    <property name="project.structure.last.edited" value="Variables" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="gradle.compiler" />
+  </component>
+  <component name="PsdUISettings">
+    <option name="MODULE_TAB" value="Properties" />
+    <option name="LAST_EDITED_SIGNING_CONFIG" value="debug" />
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.smartpocket.musicwidget.backend" />
+    </key>
+    <key name="android.template.packageName">
+      <recent name="com.smartpocket.musicwidget.activities" />
+    </key>
+    <key name="android.template.parentActivityClass">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspaceAndroid\MusicWidget\app\src\main\res\drawable" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.smartpocket.musicwidget.backend" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\workspaceAndroid\MusicWidget\app\src\main\java\com\smartpocket\musicwidget\backend" />
+      <recent name="C:\workspaceAndroid\MusicWidget\app\src\main\res\anim" />
+      <recent name="C:\workspaceAndroid\MusicWidget\app\src\main\res\drawable" />
+      <recent name="C:\workspaceAndroid\MusicWidget\app" />
+      <recent name="D:\workspaceAndroid\MusicWidget\app\src\main\res\xml" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.smartpocket.musicwidget.service" />
+      <recent name="com.smartpocket.musicwidget.backend" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android App.app">
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <Native>
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Native>
+      <Java />
+      <Hybrid>
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Hybrid>
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <Native>
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Native>
+      <Java />
+      <Hybrid>
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Hybrid>
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" name="Reinstall" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <Native>
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Native>
+      <Java />
+      <Hybrid>
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Hybrid>
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method>
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" goal=":app:uninstallAll" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java />
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="do_nothing" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java />
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" name="app" type="AndroidRunConfigurationType" factoryName="Android Application" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <Native>
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Native>
+      <Java />
+      <Hybrid>
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Hybrid>
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Android App.app" />
+    </list>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fd0c47fa-b7ac-479d-9675-ab6dee9e0f3d" name="Default" comment="" />
+      <created>1461124977459</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1461124977459</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fixed app permission requests for Android &lt; 6">
+      <created>1590619889224</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1590619889224</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Version 3.3">
+      <created>1590619926901</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1590619926901</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Updated to gradle 4.0.0">
+      <created>1590708674402</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1590708674402</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Refactored SongListActivity to use Kotlin, ViewModel, and to fetch the song cursor in a coroutine.">
+      <created>1590955462368</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1590955462368</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Added splash background icon">
+      <created>1590962712684</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1590962712684</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Fixed icons not updating in notification after lib update">
+      <created>1590965856746</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1590965856746</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Converted MusicNotification to Kotlin">
+      <created>1590966402287</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1590966402287</updated>
+    </task>
+    <task id="LOCAL-00034" summary="SongListActivity now requests permissions if necessary">
+      <created>1591139498661</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1591139498662</updated>
+    </task>
+    <task id="LOCAL-00035" summary="MusicService now requests permissions if necessary">
+      <created>1591484405854</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1591484405854</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Version 3.4 (7)">
+      <created>1591492525132</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1591492525132</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Automatic pause when receiving a phone call, and resume when it ends">
+      <created>1591539219782</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1591539219782</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Adding animations to widget, using a ViewFlipper.">
+      <created>1592089766805</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1592089766805</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Improved ViewFlipper animations in widget">
+      <created>1592091510864</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1592091510864</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Experiment with autoSizeTextType - didn't work">
+      <created>1592092237093</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1592092237093</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Reduced animation duration">
+      <created>1592155287231</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1592155287231</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Added missing READ_PHONE_STATE permission for old Android versions">
+      <created>1592156303736</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1592156303737</updated>
+    </task>
+    <task id="LOCAL-00043" summary="The media player can now be controlled with headset media buttons">
+      <created>1592696168440</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1592696168440</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Refactored code to use Koin for dependency injection">
+      <created>1593271441534</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1593271441534</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Added FAB button to SongListActivity. Improved toolbar.">
+      <created>1593299772677</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1593299772677</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Added ads to SongListActivity. Multidex support.">
+      <created>1593368605253</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1593368605254</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Added toolbar divider">
+      <created>1593371238928</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1593371238928</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Version 8 - 4.0">
+      <created>1593385192411</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1593385192413</updated>
+    </task>
+    <task id="LOCAL-00049" summary="WIP to show album art in SongListActivity">
+      <created>1593871540386</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1593871540386</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Added album art to notifications">
+      <created>1593881479475</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1593881479479</updated>
+    </task>
+    <task id="LOCAL-00051" summary="WIP to show album art in SongListActivity | weird error">
+      <created>1593881712594</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1593881712594</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Added album art to notifications">
+      <created>1593881848948</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1593881848949</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Open SongListActivity when clicking on the notification">
+      <created>1593905123060</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1593905123060</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Added album art to widget">
+      <created>1593905989168</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1593905989168</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Added metadata info (duration and state) to notifications in Android 10">
+      <created>1593972078696</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1593972078698</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Dynamic album art size in widget">
+      <created>1593982271434</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1593982271435</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Added album art to SongListActivity">
+      <created>1593983905905</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1593983905905</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Performance improvement for AlbumArtLoader (added cache)">
+      <created>1593985180861</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1593985180861</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Added default album art icon for notification and song list">
+      <created>1593987253790</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1593987253790</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Converting classes to Kotlin">
+      <created>1593989241448</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1593989241448</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Added Glide to proguard rules">
+      <created>1593989556951</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1593989556951</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Converted remaining classes to Kotlin">
+      <created>1594507455581</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1594507455583</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Code improvements">
+      <created>1594511243861</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1594511243862</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Improved performance when loading album art in SongListActivity">
+      <created>1594575532126</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1594575532128</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Alternative way to load album art, compatible with Android Q">
+      <created>1595733973862</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1595733973865</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Updated libs, removed Glide warnings from log">
+      <created>1595736497680</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1595736497683</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Attempt to fix RemoteServiceException: Context.startForegroundService() did not then call Service.startForeground()&#10;Code cleanup">
+      <created>1595795968874</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1595795968875</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Fixed crash when pressing play on the headset, when the player was stopped.">
+      <created>1596067857073</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1596067857074</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Version 9 - 5.0">
+      <created>1596146581320</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1596146581320</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Fixed out of memory error during bundle generation">
+      <created>1596149084682</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1596149084682</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Fixed empty notification when there are no songs to play">
+      <created>1596152985054</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1596152985054</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Fixed IllegalStateException in MediaBrowserService.performLoadChildren&#10;Version 5.0.1">
+      <created>1596237816582</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1596237816582</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Override size on album art load with Glide">
+      <created>1596302160244</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1596302160244</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Start SongListActivity scrolling to the current song position.&#10;Attempt to recover from MediaPlayer's error state.">
+      <created>1596327868902</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1596327868902</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Improved recovery from MediaPlayer's error state (tested OK)">
+      <created>1596410016184</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1596410016185</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="WIP to show album art in SongListActivity | weird error" />
+    <MESSAGE value="Added album art to notifications" />
+    <MESSAGE value="Open SongListActivity when clicking on the notification" />
+    <MESSAGE value="Added album art to widget" />
+    <MESSAGE value="Added metadata info (duration and state) to notifications in Android 10" />
+    <MESSAGE value="Dynamic album art size in widget" />
+    <MESSAGE value="Added album art to SongListActivity" />
+    <MESSAGE value="Performance improvement for AlbumArtLoader (added cache)" />
+    <MESSAGE value="Added default album art icon for notification and song list" />
+    <MESSAGE value="Converting classes to Kotlin" />
+    <MESSAGE value="Added Glide to proguard rules" />
+    <MESSAGE value="Converted remaining classes to Kotlin" />
+    <MESSAGE value="Code improvements" />
+    <MESSAGE value="Improved performance when loading album art in SongListActivity" />
+    <MESSAGE value="Alternative way to load album art, compatible with Android Q" />
+    <MESSAGE value="Updated libs, removed Glide warnings from log" />
+    <MESSAGE value="Attempt to fix RemoteServiceException: Context.startForegroundService() did not then call Service.startForeground()&#10;Code cleanup" />
+    <MESSAGE value="Fixed crash when pressing play on the headset, when the player was stopped." />
+    <MESSAGE value="Version 9 - 5.0" />
+    <MESSAGE value="Fixed out of memory error during bundle generation" />
+    <MESSAGE value="Fixed empty notification when there are no songs to play" />
+    <MESSAGE value="Fixed IllegalStateException in MediaBrowserService.performLoadChildren&#10;Version 5.0.1" />
+    <MESSAGE value="Override size on album art load with Glide" />
+    <MESSAGE value="Start SongListActivity scrolling to the current song position.&#10;Attempt to recover from MediaPlayer's error state." />
+    <MESSAGE value="Improved recovery from MediaPlayer's error state (tested OK)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved recovery from MediaPlayer's error state (tested OK)" />
+    <option name="PRESELECT_EXISTING_CHANGELIST" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="200" y="96" key="#PSD" timestamp="1598131874036">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="200" y="96" key="#PSD/0.0.1366.728@0.0.1366.728" timestamp="1598131874036" />
+    <state x="392" y="167" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1594680843275">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="392" y="167" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1594680843275" />
+    <state x="474" y="80" width="563" height="583" key="#com.intellij.ide.util.MemberChooser" timestamp="1593296679253">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="474" y="80" width="563" height="583" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1593296679253" />
+    <state x="363" y="92" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1600470339379">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="363" y="92" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.728@0.0.1366.728" timestamp="1600470339379" />
+    <state x="667" y="119" key="#xdebugger.evaluate" timestamp="1596412417138">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="667" y="119" key="#xdebugger.evaluate/0.0.1366.728@0.0.1366.728" timestamp="1596412417138" />
+    <state x="429" y="256" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1598131458898">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="429" y="256" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.728@0.0.1366.728" timestamp="1598131458898" />
+    <state x="263" y="119" key="AndroidCreateResourceFileDialog" timestamp="1593290481941">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="263" y="119" key="AndroidCreateResourceFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1593290481941" />
+    <state x="541" y="177" key="AndroidCreateXmlResourceDialog" timestamp="1593983403360">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="541" y="177" key="AndroidCreateXmlResourceDialog/0.0.1366.728@0.0.1366.728" timestamp="1593983403360" />
+    <state x="538" y="129" key="AndroidProcessChooserDialog" timestamp="1596585000533">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="538" y="129" key="AndroidProcessChooserDialog/0.0.1366.728@0.0.1366.728" timestamp="1596585000533" />
+    <state x="0" y="0" width="1366" height="728" key="CommitChangelistDialog2" timestamp="1596410012780">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="0" y="0" width="1366" height="728" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1596410012780" />
+    <state width="434" height="438" key="DebuggerActiveHint" timestamp="1595211496000">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="434" height="438" key="DebuggerActiveHint/0.0.1366.728@0.0.1366.728" timestamp="1595211496000" />
+    <state x="-7" y="0" width="1372" height="664" key="DiffContextDialog" timestamp="1596893127294">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="-7" y="0" width="1372" height="664" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1596893127294" />
+    <state x="167" y="131" key="FileChooserDialogImpl" timestamp="1596153387406">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="167" y="131" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1596153387406" />
+    <state width="1323" height="504" key="GridCell.Tab.0.bottom" timestamp="1598133570671">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="504" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598133570671" />
+    <state width="1323" height="504" key="GridCell.Tab.0.center" timestamp="1598133570671">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="504" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598133570671" />
+    <state width="1323" height="504" key="GridCell.Tab.0.left" timestamp="1598133570671">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="504" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598133570671" />
+    <state width="1323" height="504" key="GridCell.Tab.0.right" timestamp="1598133570671">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="504" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598133570671" />
+    <state width="1323" height="181" key="GridCell.Tab.1.bottom" timestamp="1596998821717">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="181" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596998821717" />
+    <state width="1323" height="181" key="GridCell.Tab.1.center" timestamp="1596998821716">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="181" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1596998821716" />
+    <state width="1323" height="181" key="GridCell.Tab.1.left" timestamp="1596998821716">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="181" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1596998821716" />
+    <state width="1323" height="181" key="GridCell.Tab.1.right" timestamp="1596998821717">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="181" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1596998821717" />
+    <state x="498" y="298" key="ReplaceDuplicatesPrompt" timestamp="1593971635088">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="498" y="298" key="ReplaceDuplicatesPrompt/0.0.1366.728@0.0.1366.728" timestamp="1593971635088" />
+    <state x="486" y="74" key="RollbackChangesDialog" timestamp="1596067738178">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="486" y="74" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1596067738178" />
+    <state x="0" y="0" width="976" height="728" key="ScreenshotViewer.Dimensions" timestamp="1596153388090">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="0" y="0" width="976" height="728" key="ScreenshotViewer.Dimensions/0.0.1366.728@0.0.1366.728" timestamp="1596153388090" />
+    <state x="162" y="0" key="SettingsEditor" timestamp="1598131635409">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="162" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1598131635409" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1596410029147">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1596410029147" />
+    <state x="499" y="142" key="chooseDestDirectoryDialog" timestamp="1596411018162">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="499" y="142" key="chooseDestDirectoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1596411018162" />
+    <state x="-3" y="3" width="1182" height="544" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1596152606716">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="-3" y="3" width="1182" height="544" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1366.728@0.0.1366.728" timestamp="1596152606716" />
+    <state x="438" y="196" key="com.developerphil.adbidea.ui.DeviceChooserDialog" timestamp="1595735166029">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="438" y="196" key="com.developerphil.adbidea.ui.DeviceChooserDialog/0.0.1366.728@0.0.1366.728" timestamp="1595735166029" />
+    <state x="734" y="158" width="540" height="497" key="extract.method.dialog" timestamp="1593971616875">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="734" y="158" width="540" height="497" key="extract.method.dialog/0.0.1366.728@0.0.1366.728" timestamp="1593971616875" />
+    <state x="168" y="106" width="612" height="534" key="find.popup" timestamp="1598132563708">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="168" y="106" width="612" height="534" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1598132563708" />
+    <state x="497" y="209" key="git4idea.ui.GitTagDialog" timestamp="1596237825367">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="497" y="209" key="git4idea.ui.GitTagDialog/0.0.1366.728@0.0.1366.728" timestamp="1596237825367" />
+    <state width="532" height="247" key="javadoc.popup.new" timestamp="1598134373968">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="532" height="247" key="javadoc.popup.new/0.0.1366.728@0.0.1366.728" timestamp="1598134373968" />
+    <state x="424" y="0" width="517" height="688" key="refactoring.ChangeSignatureDialog" timestamp="1593876179496">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="424" y="0" width="517" height="688" key="refactoring.ChangeSignatureDialog/0.0.1366.728@0.0.1366.728" timestamp="1593876179496" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1595774090038">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1595774090038" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1598133585591">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1598133585591" />
+    <state x="49" y="117" key="vcs.ApplyPatchDifferentiatedDialog" timestamp="1593982320912">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="49" y="117" key="vcs.ApplyPatchDifferentiatedDialog/0.0.1366.728@0.0.1366.728" timestamp="1593982320912" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel/2.2.0/4f90404dd52d3162217bf329db5afb32d373ec63/lifecycle-viewmodel-2.2.0-sources.jar!/androidx/lifecycle/ViewModelProvider.java</url>
+          <line>218</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel/2.2.0/4f90404dd52d3162217bf329db5afb32d373ec63/lifecycle-viewmodel-2.2.0-sources.jar!/androidx/lifecycle/ViewModelProvider.java</url>
+          <line>263</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel/2.2.0/4f90404dd52d3162217bf329db5afb32d373ec63/lifecycle-viewmodel-2.2.0-sources.jar!/androidx/lifecycle/ViewModelProvider.java</url>
+          <line>257</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.futuremind.recyclerfastscroll/fastscroll/0.2.5/b5e0762cb0d3f5a342f3dd3e2f31d6963d40b491/fastscroll-0.2.5-sources.jar!/com/futuremind/recyclerviewfastscroll/viewprovider/DefaultBubbleBehavior.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.futuremind.recyclerfastscroll/fastscroll/0.2.5/b5e0762cb0d3f5a342f3dd3e2f31d6963d40b491/fastscroll-0.2.5-sources.jar!/com/futuremind/recyclerviewfastscroll/viewprovider/DefaultBubbleBehavior.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/ConfigurationActivity.kt</url>
+          <line>77</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/ConfigurationActivity.kt</url>
+          <line>90</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <condition expression="result != null" language="kotlin" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/backend/AlbumArtLoader.kt</url>
+          <line>60</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/ConfigurationActivity.kt</url>
+          <line>120</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/SongListActivity.kt</url>
+          <line>83</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/SongListVM.kt</url>
+          <line>79</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/backend/SongCursorRecyclerAdapter.kt</url>
+          <line>58</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/smartpocket/musicwidget/activities/SongListVM.kt</url>
+          <line>74</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Remote">
+        <watch expression="intent.getAction()" />
+        <watch expression="song" />
+        <watch expression="song.getURI()" language="kotlin" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

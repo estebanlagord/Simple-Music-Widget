@@ -34,8 +34,9 @@ import com.smartpocket.musicwidget.backend.AlbumArtLoader
 import com.smartpocket.musicwidget.backend.MusicLoader
 import com.smartpocket.musicwidget.backend.MusicNotificationBuilder
 import com.smartpocket.musicwidget.model.Song
-import com.smartpocket.musicwidget.musicplayer.MusicPlayer
+import com.smartpocket.musicwidget.musicplayer.IMusicPlayer
 import com.smartpocket.musicwidget.musicplayer.MusicPlayerCompletionListener
+import com.smartpocket.musicwidget.musicplayer.MyExoPlayer
 import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -49,7 +50,7 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
     private val job = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
     private lateinit var mediaSession: MediaSessionCompat
-    private lateinit var player: MusicPlayer
+    private lateinit var player: IMusicPlayer
     private var currFlipperState = ViewFlipperState.STOPPED
     private val defaultAlbumArt: Bitmap by lazy { BitmapFactory.decodeResource(resources, R.drawable.album_white) }
     private val notificationManager: NotificationManager by lazy { getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager }
@@ -68,7 +69,7 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
                 .setContentTitle("")
                 .setContentText("").build())
 
-        player = MusicPlayer(this).also {
+        player = MyExoPlayer(this).also {
             it.setOnCompletionListener(this)
         }
 

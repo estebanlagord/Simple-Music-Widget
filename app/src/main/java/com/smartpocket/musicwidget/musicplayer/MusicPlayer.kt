@@ -10,21 +10,22 @@ import android.util.Log
 import com.smartpocket.musicwidget.model.Song
 import java.io.IOException
 
-class MusicPlayer(private val context: Context) : OnCompletionListener {
+@Deprecated("Changed to use MyExoPlayer")
+class MusicPlayer(private val context: Context) : OnCompletionListener, IMusicPlayer {
 
     private val TAG = "Music Player"
     private var player: MediaPlayer? = null
     private var onMusicCompletionListener: MusicPlayerCompletionListener? = null
 
-    fun isPlaying() = player?.isPlaying == true
-    fun isPaused() = player?.isPlaying == false
-    fun isStopped() = player == null
+    override fun isPlaying() = player?.isPlaying == true
+    override fun isPaused() = player?.isPlaying == false
+    override fun isStopped() = player == null
 
     @Throws(IllegalArgumentException::class,
             SecurityException::class,
             IllegalStateException::class,
             IOException::class)
-    fun setSong(song: Song, forcePlay: Boolean) {
+    override fun setSong(song: Song, forcePlay: Boolean) {
         val wasPlaying = isPlaying()
         var localPlayer = player
         if (localPlayer == null) {
@@ -62,19 +63,19 @@ class MusicPlayer(private val context: Context) : OnCompletionListener {
         Log.d(TAG, "Changed song to: " + song.title)
     }
 
-    fun play() {
+    override fun play() {
         checkNotNull(player) { "Must call setSong() before calling play()" }
         player?.start()
     }
 
-    fun pause() {
+    override fun pause() {
         if (isPlaying()) {
             player?.pause()
             Log.d(TAG, "Music paused")
         }
     }
 
-    fun stop() {
+    override fun stop() {
         val localPlayer = player
         if (localPlayer != null) {
             if (localPlayer.isPlaying) {
@@ -90,7 +91,7 @@ class MusicPlayer(private val context: Context) : OnCompletionListener {
     /**
      * Register a callback to be invoked when the end of a song has been reached during playback
      */
-    fun setOnCompletionListener(listener: MusicPlayerCompletionListener?) {
+    override fun setOnCompletionListener(listener: MusicPlayerCompletionListener) {
         onMusicCompletionListener = listener
     }
 
@@ -103,6 +104,6 @@ class MusicPlayer(private val context: Context) : OnCompletionListener {
         }
     }
 
-    fun getPosition(): Long = player?.currentPosition?.toLong() ?: 0
+    override fun getPosition(): Long = player?.currentPosition?.toLong() ?: 0
 
 }

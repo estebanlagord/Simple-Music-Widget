@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.smartpocket.musicwidget.R
 
-private const val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
+private const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1
 private const val TAG = "Music Widget Config"
 private const val MAX_ATTEMPTS = 20
 
@@ -39,7 +39,7 @@ class ConfigurationActivity : AppCompatActivity() {
             // Permission is not granted
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
@@ -66,8 +66,8 @@ class ConfigurationActivity : AppCompatActivity() {
         Log.i(TAG, "requesting permission")
         counter++
         ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
@@ -75,7 +75,7 @@ class ConfigurationActivity : AppCompatActivity() {
         Log.i(TAG, "on request permission result")
 
         when (requestCode) {
-            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE -> {
+            MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // permission was granted, yay! Do the
@@ -127,6 +127,6 @@ class ConfigurationActivity : AppCompatActivity() {
 fun Context.needsToRequestPermissions(): Boolean {
     val supportsDynamicPermissions = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
     return supportsDynamicPermissions &&
-            (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED)
 }

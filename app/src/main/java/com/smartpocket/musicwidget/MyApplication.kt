@@ -9,6 +9,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 class MyApplication : MultiDexApplication() {
@@ -16,13 +17,13 @@ class MyApplication : MultiDexApplication() {
         super.onCreate()
 
         startKoin {
-            androidLogger()
+            androidLogger(Level.ERROR)
             androidContext(this@MyApplication)
             modules(appModule)
         }
     }
 
-    val appModule = module {
+    private val appModule = module {
         single { AlbumArtLoader(get()) }
         single { MusicLoader(get()) }
         single { SongListLoader(get()) }

@@ -20,7 +20,7 @@ class SongListVM(private val songLoader: SongListLoader,
 
     private val tag = javaClass.simpleName
     private var currentSearch: Job? = null
-    val cursorLD = MutableLiveData<Cursor>()
+    val cursorLD = MutableLiveData<Cursor?>()
     val currentPosLD = MutableLiveData<Int>()
 
     fun getCursor(query: String? = null) {
@@ -34,7 +34,7 @@ class SongListVM(private val songLoader: SongListLoader,
                     else songLoader.getFilteredCursor(query ?: "")
 
             cursorLD.postValue(cursor)
-            if (isNotSearching) {
+            if (isNotSearching && (cursor != null)) {
                 val currentIndex = getCurrentSongIndex(cursor, musicLoader.getCurrent())
                 currentPosLD.postValue(currentIndex)
             }

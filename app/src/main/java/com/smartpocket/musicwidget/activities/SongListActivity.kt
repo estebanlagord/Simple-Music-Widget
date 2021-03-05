@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -69,7 +70,10 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             }
         }
 
-        viewModel.cursorLD.observe(this, Observer(adapter::changeCursor))
+        viewModel.cursorLD.observe(this, {
+            adapter.changeCursor(it)
+            tvNoSongsFound.visibility = if (it == null) View.VISIBLE else View.GONE
+        })
         viewModel.currentPosLD.observe(this, Observer(listView::scrollToPosition))
 
         if (needsToRequestPermissions()) {

@@ -151,7 +151,7 @@ class MusicService : MediaBrowserServiceCompat(), MusicPlayerCompletionListener,
                 MusicWidget.ACTION_JUMP_TO -> jumpTo(intent.extras!!["song"] as Song)
             }
         } catch (e: CursorIndexOutOfBoundsException) {
-            Toast.makeText(this, R.string.toast_no_music_found, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.message_no_music_found, Toast.LENGTH_SHORT).show()
             stopMusic()
         } catch (e: Exception) {
             e.printStackTrace()

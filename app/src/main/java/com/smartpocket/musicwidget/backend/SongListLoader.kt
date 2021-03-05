@@ -23,7 +23,7 @@ class SongListLoader(private val context: Context) {
                 MediaStore.Audio.Media.DATA,
                 MediaStore.Audio.Media.ALBUM_ID
         )
-        cur = context.contentResolver.query(
+        var localCur = context.contentResolver.query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection,
                 selection,
@@ -31,12 +31,17 @@ class SongListLoader(private val context: Context) {
                 MusicLoader.DEFAULT_SORT_ORDER)
 
         Log.d(TAG, "Query finished. " + if (cur == null) "Returned NULL." else "Returned a cursor.")
-        if (cur == null) {
+        if (localCur == null) {
             // Query failed...
             Log.e(TAG, "Failed to retrieve music: cursor is null")
+        } else if (localCur.count == 0) {
+            Log.e(TAG, "Failed to retrieve music: no music found")
+            localCur.close()
+            localCur = null
         } else {
             Log.d(TAG, "Done querying media. SongListLoader is ready.")
         }
+        cur = localCur
         return cur
     }
 

@@ -31,6 +31,19 @@
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toBottomOf="@id/toolbar" />
 
+    <TextView
+        android:id="@+id/tvNoSongsFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/message_no_music_found"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        ads:layout_constraintBottom_toTopOf="@id/adViewContainer"
+        ads:layout_constraintTop_toBottomOf="@id/toolbarDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -41,7 +54,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarDivider"
         tools:context="com.smartpocket.musicwidget.activities.SongListActivity"
-        tools:listitem="@layout/song_list_row" />
+        tools:listitem="@layout/song_list_row"
+        tools:visibility="gone" />
 
     <com.futuremind.recyclerviewfastscroll.FastScroller
         android:id="@+id/fastscroll"

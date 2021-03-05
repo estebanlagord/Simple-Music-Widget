@@ -39,10 +39,12 @@
         android:padding="16dp"
         android:text="@string/message_no_music_found"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:visibility="gone"
         ads:layout_constraintBottom_toTopOf="@id/adViewContainer"
         ads:layout_constraintTop_toBottomOf="@id/toolbarDivider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
@@ -55,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbarDivider"
         tools:context="com.smartpocket.musicwidget.activities.SongListActivity"
         tools:listitem="@layout/song_list_row"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
     <com.futuremind.recyclerviewfastscroll.FastScroller
         android:id="@+id/fastscroll"

@@ -20,7 +20,7 @@ private const val TAG = "Music Widget Config"
 private const val MAX_ATTEMPTS = 20
 
 class ConfigurationActivity : AppCompatActivity() {
-    var counter = 0
+    private var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 //        android.os.Debug.waitForDebugger()

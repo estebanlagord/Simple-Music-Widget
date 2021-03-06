@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.futuremind.recyclerviewfastscroll.SectionTitleProvider
 import com.smartpocket.musicwidget.R
+import com.smartpocket.musicwidget.databinding.SongListRowBinding
 import com.smartpocket.musicwidget.model.Song
 import org.apache.commons.lang3.StringUtils
 
 class SongCursorRecyclerAdapter(cursor: Cursor?,
                                 private val context: Context,
-                                private val albumArtLoader: AlbumArtLoader,
                                 private val listener: SongClickListener)
     : CursorRecyclerAdapter<SongViewHolder>(cursor), ItemClickListener, SectionTitleProvider {
 
@@ -51,9 +51,8 @@ class SongCursorRecyclerAdapter(cursor: Cursor?,
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.song_list_row, parent, false)
-        return SongViewHolder(view, this)
+        val binding = SongListRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return SongViewHolder(binding, this)
     }
 
     override fun onItemClick(position: Int) {

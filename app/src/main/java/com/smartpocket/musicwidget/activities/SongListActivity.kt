@@ -17,13 +17,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.smartpocket.musicwidget.MusicWidget
 import com.smartpocket.musicwidget.R
 import com.smartpocket.musicwidget.backend.AdViewHelper
-import com.smartpocket.musicwidget.backend.AlbumArtLoader
 import com.smartpocket.musicwidget.backend.SongClickListener
 import com.smartpocket.musicwidget.backend.SongCursorRecyclerAdapter
+import com.smartpocket.musicwidget.databinding.SongListActivityBinding
 import com.smartpocket.musicwidget.model.Song
 import com.smartpocket.musicwidget.service.MusicService
-import kotlinx.android.synthetic.main.song_list_activity.*
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -33,16 +31,17 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var adapter: SongCursorRecyclerAdapter
     private lateinit var adViewHelper: AdViewHelper
     private val viewModel: SongListVM by viewModel()
-    private val albumArtLoader: AlbumArtLoader by inject()
     private var isSearching = AtomicBoolean(false)
+    private lateinit var binding: SongListActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.song_list_activity)
-        setSupportActionBar(toolbar)
+        binding = SongListActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         handleIntent(intent)
 
-        adapter = SongCursorRecyclerAdapter(null, this, albumArtLoader, object : SongClickListener {
+        adapter = SongCursorRecyclerAdapter(null, this, object : SongClickListener {
             override fun onSongSelected(song: Song) {
                 Log.i("SongListActivity click", song.toString())
                 val serviceIntent = Intent(this@SongListActivity, MusicService::class.java)
@@ -57,24 +56,24 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             }
         })
 
-        listView.also {
+        binding.listView.also {
             val dividerItemDecoration = DividerItemDecoration(it.context, LinearLayout.VERTICAL)
             it.addItemDecoration(dividerItemDecoration)
             it.adapter = adapter
-            it.addOnScrollListener(MyRecyclerViewOnScrollListener(fabBtn, isSearching))
+            it.addOnScrollListener(MyRecyclerViewOnScrollListener(binding.fabBtn, isSearching))
 
             //has to be called AFTER RecyclerView.setAdapter()
-            with(fastscroll) {
+            with(binding.fastscroll) {
                 setRecyclerView(it)
-                setViewProvider(MyFastScrollScrollerViewProvider(fabBtn))
+                setViewProvider(MyFastScrollScrollerViewProvider(binding.fabBtn))
             }
         }
 
         viewModel.cursorLD.observe(this, {
             adapter.changeCursor(it)
-            tvNoSongsFound.visibility = if (it == null) View.VISIBLE else View.GONE
+            binding.tvNoSongsFound.visibility = if (it == null) View.VISIBLE else View.GONE
         })
-        viewModel.currentPosLD.observe(this, Observer(listView::scrollToPosition))
+        viewModel.currentPosLD.observe(this, Observer(binding.listView::scrollToPosition))
 
         if (needsToRequestPermissions()) {
             val intent = Intent(this, ConfigurationActivity::class.java)
@@ -82,7 +81,7 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         } else {
             viewModel.getCursor()
         }
-        adViewHelper = AdViewHelper(adViewContainer, this)
+        adViewHelper = AdViewHelper(binding.adViewContainer, this)
         adViewHelper.showBanner(true)
     }
 
@@ -109,13 +108,13 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 isSearching.set(true)
-                fabBtn.shrink()
+                binding.fabBtn.shrink()
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 isSearching.set(false)
-                fabBtn.extend()
+                binding.fabBtn.extend()
                 return true
             }
         })
@@ -127,7 +126,7 @@ class SongListActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             it.setOnQueryTextListener(this)
         }
 
-        fabBtn.setOnClickListener {
+        binding.fabBtn.setOnClickListener {
             if (searchItem.isActionViewExpanded) searchItem.collapseActionView()
             else searchItem.expandActionView()
         }
